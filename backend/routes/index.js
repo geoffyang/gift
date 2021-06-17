@@ -5,6 +5,7 @@ const apiRouter = require('./api')
 const router = express.Router();
 router.use('/api', apiRouter)
 
+// authority/hello
 router.get('/hello', function (req, res) {
     res.cookie('XSRF-TOKEN', req.csrfToken());
     res.send("HELLO WORLD");
