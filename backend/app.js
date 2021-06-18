@@ -16,16 +16,13 @@ const app = express();
 app.use(morgan('dev'));
 app.use(cookieParser());
 app.use(express.json());
-
 if (!isProduction) {
-    // enable cors only in development
-    app.use(cors());
+    app.use(cors());// enable cors only in development
 }
 // helmet helps set a variety of headers to better secure your app
 app.use(helmet({
     contentSecurityPolicy: false
 }));
-
 // Set the _csrf token and create req.csrfToken method
 app.use(
     csurf({
@@ -36,7 +33,6 @@ app.use(
         },
     })
 );
-
 app.use(routes)
 
 // Catch unhandled routes.

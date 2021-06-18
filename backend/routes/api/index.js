@@ -1,37 +1,25 @@
+// external
 const router = require('express').Router();
+
+// internal
+const sessionRouter = require('./session.js');
+const usersRouter = require('./users.js');
 const asyncHandler = require('express-async-handler');
 const { setTokenCookie, restoreUser , requireAuth} = require('../../utils/auth.js');
 const { User } = require('../../db/models');
 
-// authority/api/test
-router.post('/test', (req, res) => {
+// middleware
+router.use('/session', sessionRouter) // api/session
+router.use('/users', usersRouter) // api/users
+
+/*******************************************/
+/*              Routes                     */
+/*******************************************/
+
+// authority/api/hello/world
+router.post('/hello/world', (req, res) => {
     res.json({ requestBody: req.body })
 });
 
-router.get('/set-token-cookie', asyncHandler(async (req, res) => {
-    const user = await User.findOne({
-        where: {
-            username: 'Demo-lition'
-        },
-    })
-    setTokenCookie(res, user);
-    return res.json({ user });
-}));
-
-router.get(
-    '/restore-user',
-    restoreUser,
-    (req, res) => {
-        return res.json(req.user);
-    }
-);
-
-router.get(
-    '/require-auth',
-    requireAuth,
-    (req, res) => {
-        return res.json(req.user);
-    }
-);
 
 module.exports = router;
