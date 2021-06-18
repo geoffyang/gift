@@ -1,5 +1,5 @@
 // external
-const express = require('express')
+const express = require('express');
 const asyncHandler = require('express-async-handler');
 
 // internal
