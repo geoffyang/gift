@@ -30,6 +30,15 @@ router.post('/', asyncHandler(async (req, res, next) => {
     return res.json({ user, });
 }))
 
+// GET api/session who is current user
+router.get('/',restoreUser, asyncHandler(async (req, res, next) => {
+    console.log("********************", req.user.toJSON())
+    const { user } = req
+    if (user) {
+        return res.json({ user: user.toSafeObject() });
+    } else return res.json({});
+}))
+
 // DELETE api/session to log out
 router.delete(
     '/',
