@@ -32,7 +32,6 @@ router.post('/', asyncHandler(async (req, res, next) => {
 
 // GET api/session who is current user
 router.get('/',restoreUser, asyncHandler(async (req, res, next) => {
-    console.log("********************", req.user.toJSON())
     const { user } = req
     if (user) {
         return res.json({ user: user.toSafeObject() });
