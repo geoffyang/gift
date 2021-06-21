@@ -13,11 +13,11 @@ router.use('/session', sessionRouter) // api/session
 router.use('/users', usersRouter) // api/users
 
 /*******************************************/
-/*              Routes                     */
+/*              /API Routes                */
 /*******************************************/
 
-// authority/api/hello/world
-router.post('/hello/world', (req, res) => {
+// POST /api/test
+router.post('/test', (req, res) => {
     res.json({ requestBody: req.body })
 });
 
