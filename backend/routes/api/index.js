@@ -8,9 +8,13 @@ const asyncHandler = require('express-async-handler');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth.js');
 const { User } = require('../../db/models');
 
-// middleware
-router.use('/session', sessionRouter) // api/session
-router.use('/users', usersRouter) // api/users
+
+router.use('/session', sessionRouter)
+    // POST api/session to log in
+    // GET api/session returns current user
+    // DELETE api/session removes token cookie
+router.use('/users', usersRouter)
+    // POST api/users to register
 
 /*******************************************/
 /*              /API Routes                */

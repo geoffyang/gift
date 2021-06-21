@@ -38,7 +38,7 @@ router.post('/', validateLogin, asyncHandler(async (req, res, next) => {
     }
 
     await setTokenCookie(res, user);
-    return res.json({ user, });
+    return res.json({ user});
 }))
 
 // GET api/session who is current user
