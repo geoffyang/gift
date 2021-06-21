@@ -11,9 +11,3 @@ module.exports = (sequelize, DataTypes) => {
   return Review;
 };
 
-
-Review.associate = function (models) {
-
-
-
-};

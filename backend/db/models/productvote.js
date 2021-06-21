@@ -11,3 +11,6 @@ module.exports = (sequelize, DataTypes) => {
   return ProductVote;
 };
 
+ProductVote.prototype.countVotes = function (productId) {
+  return {}
+}
