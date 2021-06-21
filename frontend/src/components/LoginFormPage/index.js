@@ -1,11 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
 // internal imports
 import './LoginForm.css'
-
 
 function LoginFormPage() {
     const [credential, setCredential] = useState('');
