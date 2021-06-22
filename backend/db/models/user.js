@@ -30,6 +30,15 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       },
     },
+    profilePicURL: {
+      type: Sequelize.STRING
+    },
+    profileHeader: {
+      type: Sequelize.STRING(140)
+    },
+    profileText: {
+      type: Sequelize.TEXT
+    },
   },
     {
       defaultScope: {
@@ -47,7 +56,23 @@ module.exports = (sequelize, DataTypes) => {
       },
     });
   User.associate = function (models) {
-    // associations can be defined here
+
+    User.hasMany(models.Product, {
+      foreignKey: "userId",
+      onDelete: "CASCADE",
+      hooks: true,
+    });
+    User.hasMany(models.Review, {
+      foreignKey: "userId",
+      onDelete: "CASCADE",
+      hooks: true,
+    });
+    User.hasMany(models.ProductVote, {
+      foreignKey: "userId",
+      onDelete: "CASCADE",
+      hooks: true,
+    });
+
   };
 
   User.prototype.validatePassword = function (password) {

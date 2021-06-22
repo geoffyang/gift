@@ -19,18 +19,23 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: false
       },
+      voteScore: {
+        type: Sequelize.INTEGER
+      },
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        references:{model:"User", key:'id'}
+        references:{model:"Users", key:'id'}
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now')
       }
     });
   },

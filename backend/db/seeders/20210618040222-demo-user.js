@@ -9,6 +9,8 @@ module.exports = {
         email: 'demo@user.io',
         username: 'Demo-lition',
         hashedPassword: bcrypt.hashSync('password'),
+        profileHeader: "I make non-holiday tree ornaments.",
+        profileText:"I used to focus on the holiday season but now I've expanded my reach."
       },
       {
         email: faker.internet.email(),
