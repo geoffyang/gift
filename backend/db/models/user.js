@@ -31,13 +31,13 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     profilePicURL: {
-      type: Sequelize.STRING
+      type: DataTypes.STRING
     },
     profileHeader: {
-      type: Sequelize.STRING(140)
+      type: DataTypes.STRING(140)
     },
     profileText: {
-      type: Sequelize.TEXT
+      type: DataTypes.TEXT
     },
   },
     {
