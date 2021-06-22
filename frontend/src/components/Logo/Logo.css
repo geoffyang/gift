@@ -1,0 +1,12 @@
+.logo {
+    /* display:flex; */
+    max-width: 1000px;
+    margin: 0;
+    box-sizing: border-box;
+    text-align: center;
+    margin-left: 3rem;
+    font-size: 1.8rem;
+    font-family: Allerta, Allan, Lato, Tahoma, Roboto;
+    font-weight: bold;
+
+}

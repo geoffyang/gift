@@ -1,0 +1,30 @@
+.nav-container {
+    background: rgba(255, 255, 255, 0.70);
+    height: 70px;
+    width: 100%;
+    z-index: 10;
+    left: 0px;
+    /* display:block; */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    border: none;
+    border-radius: 0;
+    text-shadow: none;
+    box-sizing: border-box;
+    min-height: 50px;
+    /* margin-bottom: 20px; */
+}
+
+.nav__links {
+    margin-right: 3rem;
+    font-size: 1.3rem;
+    list-style-position: initial;
+    list-style-image: initial;
+    list-style-type: none;
+}
+
+
