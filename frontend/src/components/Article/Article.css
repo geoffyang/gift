@@ -1,0 +1,31 @@
+.article {
+    width: 100%;
+    float: left;
+    height: auto;
+    overflow: hidden;
+    border: 1px solid #c7c7c7;
+    padding-bottom: 20px;
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.article__image-wrapper {
+    display: block;
+    /* vertical-align: baseline; */
+    overflow: hidden;
+    height: auto;
+    position: relative;
+    z-index: 100;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    box-sizing: border-box;
+    text-align: center;
+}
