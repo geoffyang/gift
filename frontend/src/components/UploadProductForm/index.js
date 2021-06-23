@@ -22,18 +22,21 @@ export default function UploadProductForm() {
     const handleProductSubmit = e => {
         e.preventDefault();
 
-        return dispatch(productActions.upload({
+        return dispatch(productActions.uploadProduct({
             title,
             shortDescription,
             longDescription,
             imageUrl
-             // may attach userId prior to fetch
         }))
     }
 
     return (
         <form onSubmit={handleProductSubmit}>
-            <h2>Hello from product upload</h2>
+            <br />
+            <br />
+            <br />
+            <br />
+            <h2>Hello from product uploadProduct</h2>
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>

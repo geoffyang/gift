@@ -1,13 +1,11 @@
 import { csrfFetch } from './csrf'
+import { useSelector } from "react-redux";
 
 const SET_PRODUCT = "product/set"
 const REMOVE_PRODUCT = "product/remove"
 
 const setProduct = (product) => {
-    return {
-        type: SET_PRODUCT,
-        payload: product
-    }
+    return { type: SET_PRODUCT, payload: product }
 }
 const removeProduct = () => {
     return { type: REMOVE_PRODUCT }
@@ -16,11 +14,11 @@ const removeProduct = () => {
 //*********************THUNKS********************** */
 
 // login at POST /api/ROUTE TBD
-export const upload = (product) => async (dispatch) => {
+export const productUpload = (product) => async (dispatch) => {
     const { title, imageUrl, longDescription, shortDescription } = product;
+    const userId = useSelector((state) => state.session.user.userId);
 
-    // get userID
-    // userId = session....
+
 
     const response = await csrfFetch('/api/XXXXXXXXX', {
         method: 'POST',

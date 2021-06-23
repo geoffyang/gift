@@ -10,8 +10,14 @@ export async function csrfFetch(url, options = {}) {
     // "application/json", and set the "XSRF-TOKEN" header to the value of the
     // "XSRF-TOKEN" cookie
     if (options.method.toUpperCase() !== 'GET') {
-        options.headers['Content-Type'] =
-            options.headers['Content-Type'] || 'application/json';
+        if (options.headers["Content-Type"] === "multipart/form-data") {
+            // By adding formData to the body of your request, the browser will automatically set the appropriate headers and boundaries so you need to remove the Content - Type header if it is multipart / form - data.
+            delete options.headers["Content-Type"];
+        } else {
+            options.headers['Content-Type'] =
+                options.headers['Content-Type'] || 'application/json';
+        }
+        // add the csrf token no matter the method or headers
         options.headers['XSRF-Token'] = Cookies.get('XSRF-TOKEN');
     }
     // call the default window's fetch with the url and the options passed in

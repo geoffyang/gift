@@ -24,13 +24,12 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <>
-              <Splash />
-              <Navigation isLoaded={isLoaded} />
-            </>
+            <Splash />
+            <Navigation isLoaded={isLoaded} />
           </Route>
           <Route exact path='/upload'>
-            <UploadProductForm/>
+            <UploadProductForm />
+            <Navigation isLoaded={isLoaded} />
           </Route>
           <Route path="/signup">
             <SignupFormPage />
