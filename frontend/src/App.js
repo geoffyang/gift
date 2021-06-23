@@ -8,7 +8,7 @@ import * as sessionActions from "./store/session";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import Splash from "./components/Splash"
-
+import UploadProductForm from "./components/UploadProductForm"
 
 
 function App() {
@@ -28,6 +28,9 @@ function App() {
               <Splash />
               <Navigation isLoaded={isLoaded} />
             </>
+          </Route>
+          <Route exact path='/upload'>
+            <UploadProductForm/>
           </Route>
           <Route path="/signup">
             <SignupFormPage />

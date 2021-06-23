@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import * as productActions from "../../store/session";
+import * as productActions from "../../store/product";
 
 import './UploadProductForm.css';
 
@@ -12,77 +12,71 @@ export default function UploadProductForm() {
     const [title, setTitle] = useState("");
     const [shortDescription, setShortDescription] = useState("");
     const [longDescription, setLongDescription] = useState("");
-    const [imageUrl, setimageUrl] = useState("");
+    const [imageUrl, setImageUrl] = useState("");
+
     const [errors, setErrors] = useState([]);
 
-    if (sessionUser) return <Redirect to='/'/>;
+    // must be logged in to upload
+    if (!sessionUser) return <Redirect to='/' />;
 
     const handleProductSubmit = e => {
         e.preventDefault();
 
-        return dispatch(productActions.upload({title,shortDescription, longDescription,imageUrl}))
+        return dispatch(productActions.upload({
+            title,
+            shortDescription,
+            longDescription,
+            imageUrl
+             // may attach userId prior to fetch
+        }))
     }
-}
-
-
-
-    if (sessionUser) return <Redirect to="/" />;
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (password === confirmPassword) {
-            setErrors([]);
-            return dispatch(sessionActions.signup({ email, username, password }))
-                .catch(async (res) => {
-                    const data = await res.json();
-                    if (data && data.errors) setErrors(data.errors);
-                });
-        }
-        return setErrors(['Confirm Password field must be the same as the Password field']);
-    };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleProductSubmit}>
+            <h2>Hello from product upload</h2>
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
             <label>
-                Email
+                Product Title
                 <input
                     type="text"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                     required
                 />
             </label>
             <label>
-                Username
+                Short Description
                 <input
                     type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
+                    value={shortDescription}
+                    onChange={(e) => setShortDescription(e.target.value)}
                     required
                 />
             </label>
             <label>
-                Password
+                Long Description
                 <input
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
+                    type="text"
+                    value={longDescription}
+                    onChange={(e) => setLongDescription(e.target.value)}
+
                 />
             </label>
-            <label>
-                Confirm Password
+            {/* <label>
+                Upload Image
                 <input
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
+                    type="file"
+                    value={XXXXX}
+                    onChange={(e) => setXXXXX(e.target.value)}
+
                 />
-            </label>
+            </label> */}
             <button type="submit">Sign Up</button>
         </form>
-    );
+
+    )
+
 }
+

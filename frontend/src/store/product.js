@@ -17,15 +17,22 @@ const removeProduct = () => {
 
 // login at POST /api/ROUTE TBD
 export const upload = (product) => async (dispatch) => {
-    const { credential, password } = product;
-    const response = await csrfFetch('/api/session', {
+    const { title, imageUrl, longDescription, shortDescription } = product;
+
+    // get userID
+    // userId = session....
+
+    const response = await csrfFetch('/api/XXXXXXXXX', {
         method: 'POST',
         body: JSON.stringify({
-            credential,
-            password,
+            title,
+            imageUrl,
+            longDescription,
+            shortDescription,
+            // userId
         }),
     });
     const data = await response.json();
-    dispatch(setproduct(data.product));
+    dispatch(setProduct(data.product));
     return response;
 }
