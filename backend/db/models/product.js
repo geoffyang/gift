@@ -5,21 +5,27 @@
 module.exports = (sequelize, DataTypes) => {
 
   const Product = sequelize.define('Product', {
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
 
     imageUrl: DataTypes.STRING,
 
-    description: {
-      type: DataTypes.TEXT,
+    title: {
+      type: DataTypes.STRING(32),
       allowNull: false
     },
 
+    shortDescription: {
+      type: DataTypes.STRING(140),
+      allowNull: false
+    },
+
+    longDescription: DataTypes.TEXT,
+
     voteScore: DataTypes.INTEGER,
 
-    userId: DataTypes.INTEGER,
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull:false
+    }
   }, {});
 
   Product.associate = function (models) {

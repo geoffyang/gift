@@ -5,8 +5,12 @@
     box-sizing: border-box;
     text-align: center;
     margin-left: 3rem;
-    font-size: 1.8rem;
+    font-size: 2rem;
+    /* text-transform: lowercase; */
+    /* letter-spacing: -0.5px; */
+    letter-spacing: -2.5px;
     font-family: Allerta, Allan, Lato, Tahoma, Roboto;
     font-weight: bold;
-
+    /* color: rgba(61, 120, 0, 0.83); */
+    color: rgb(170, 170, 170)
 }

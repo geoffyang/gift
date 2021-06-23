@@ -7,13 +7,15 @@ module.exports = {
       {
         title: 'Tiny Air Purifier',
         // imageUrl: '',
-        description: "Air quality can have a big effect on wellbeing. Our tiny purifier can keep air quality high, one room at a time.",
+        shortDescription:"Breath better, have more energy",
+        longDescription: "Air quality can have a big effect on wellbeing. Our tiny purifier can keep air quality high, one room at a time.",
         userId: 1
       },
       {
         title: 'Vitamin Supplements',
         // imageUrl: '',
-        description: "Essential nutrients to boost your sleep, vision, cardiovascular and cell functions",
+        shortDescription:"Artisinal vitamins to feed your soul.",
+        longDescription: "Essential nutrients to boost your sleep, vision, cardiovascular and cell functions",
         userId: 1
       }
     ], {});

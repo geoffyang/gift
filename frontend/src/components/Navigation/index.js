@@ -29,7 +29,12 @@ function Navigation({ isLoaded }) {
             <Logo />
             <ul className="nav__links">
                 <li >
-                    <NavLink style={{marginRight:'1rem'}} exact to="/">Home</NavLink>
+                    <NavLink
+                        style={{ marginRight: '1rem'}}
+                        className='links' exact to="/">Home</NavLink>
+                    <NavLink
+                        style={{ marginRight: '1rem' }} className='links' exact to="/upload">Upload a Product</NavLink>
+
                     {isLoaded && sessionLinks}
                 </li>
             </ul>

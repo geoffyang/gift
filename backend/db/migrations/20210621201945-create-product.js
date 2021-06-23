@@ -8,16 +8,20 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      title: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
       imageUrl: {
         type: Sequelize.STRING
       },
-      description: {
-        type: Sequelize.TEXT,
+      title: {
+        allowNull: false,
+        type: Sequelize.STRING(32)
+      },
+      shortDescription: {
+        type: Sequelize.STRING(140),
         allowNull: false
+      },
+      longDescription: {
+        type: Sequelize.TEXT,
+        // allowNull: false
       },
       voteScore: {
         type: Sequelize.INTEGER

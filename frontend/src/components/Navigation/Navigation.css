@@ -1,5 +1,5 @@
 .nav-container {
-    background: rgba(255, 255, 255, 0.70);
+    background: rgba(0, 0, 0, 0.3);
     height: 70px;
     width: 100%;
     z-index: 10;
@@ -21,10 +21,25 @@
 
 .nav__links {
     margin-right: 3rem;
-    font-size: 1.3rem;
+    /* font-size: 1.3rem; */
     list-style-position: initial;
     list-style-image: initial;
     list-style-type: none;
+    /* color: rgba(61, 120, 0, 0.83); */
+    /* color:black; */
+    text-decoration: none;
 }
 
+.active {
+    /* color: rgba(30, 58, 2, 0.83); */
+    /* font-size: 1.1rem; */
+    font-weight: bold;
+    /* text-decoration: overline black; */
+}
 
+.links {
+    color: white;
+    text-decoration: none;
+    font-family: Allerta, Allan, Lato, Tahoma, Roboto;
+    font-size:.8rem
+}
