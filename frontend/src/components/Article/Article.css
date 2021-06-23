@@ -25,7 +25,16 @@
     padding: 0;
     border: 0;
     font-size: 100%;
-    font: inherit;
     box-sizing: border-box;
     text-align: center;
 }
+
+.article__content-wrapper {
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+}
+

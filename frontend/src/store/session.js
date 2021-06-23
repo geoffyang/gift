@@ -10,11 +10,11 @@ const setUser = (user) => {
         payload: user
     }
 }
-
 const removeUser = () => {
     return { type: REMOVE_USER }
 }
 
+//*********************THUNK********************** */
 // login at POST /api/session
 export const login = (user) => async (dispatch) => {
     const { credential, password } = user;
@@ -29,14 +29,12 @@ export const login = (user) => async (dispatch) => {
     dispatch(setUser(data.user));
     return response;
 }
-
 export const restoreUser = () => async dispatch => {
     const response = await csrfFetch('/api/session');
     const data = await response.json();
     dispatch(setUser(data.user));
     return response;
 };
-
 // signup at POST /api/users
 export const signup = (user) => async (dispatch) => {
     const { username, email, password } = user;
@@ -48,11 +46,37 @@ export const signup = (user) => async (dispatch) => {
             password,
         }),
     });
+
     const data = await response.json();
     dispatch(setUser(data.user));
 
-
     return response;
+}
+// new login thunk supporting profile image
+export const createUser = (user) => async (dispatch) => {
+    const { images, image, username, email, password } = user;
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("email", email);
+    formData.append("password", password);
+    // for multiple files
+    if (images && images.length !== 0) {
+        for (var i = 0; i < images.length; i++) {
+            formData.append("images", images[i]);
+        }
+    }
+    // for single file
+    if (image) formData.append("image", image);
+
+    const res = await csrfFetch(`/api/users/`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+        body: formData,
+    });
+    const data = await res.json();
+    dispatch(setUser(data.user));
 }
 
 // log out at DELETE api/session, returns {message:"success"}

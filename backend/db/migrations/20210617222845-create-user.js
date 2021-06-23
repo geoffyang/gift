@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING.BINARY,
         allowNull: false,
       },
-      profilePicURL: {
+      profilePicUrl: {
         type: Sequelize.STRING
       },
       profileHeader: {

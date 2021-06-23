@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
         len: [60, 60]
       },
     },
-    profilePicURL: {
+    profilePicUrl: {
       type: DataTypes.STRING
     },
     profileHeader: {
