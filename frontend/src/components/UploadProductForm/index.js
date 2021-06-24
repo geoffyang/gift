@@ -12,26 +12,28 @@ export default function UploadProductForm() {
     const [title, setTitle] = useState("");
     const [shortDescription, setShortDescription] = useState("");
     const [longDescription, setLongDescription] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [image, setImage] = useState("");
+    const [images, setImages] = useState("");
 
     const [errors, setErrors] = useState([]);
 
     // must be logged in to upload
     if (!sessionUser) return <Redirect to='/' />;
 
-    const handleProductSubmit = e => {
+    const handleSubmit = e => {
         e.preventDefault();
 
         return dispatch(productActions.uploadProduct({
             title,
             shortDescription,
             longDescription,
-            imageUrl
+            image,
+            images
         }))
     }
 
     return (
-        <form onSubmit={handleProductSubmit}>
+        <form onSubmit={handleSubmit}>
             <br />
             <br />
             <br />
@@ -76,7 +78,7 @@ export default function UploadProductForm() {
 
                 />
             </label> */}
-            <button type="submit">Sign Up</button>
+            <button type="submit">Submit Product</button>
         </form>
 
     )

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 
     userId: {
       type: DataTypes.INTEGER,
-      allowNull:false
+      allowNull: false
     }
   }, {});
 
@@ -44,6 +44,18 @@ module.exports = (sequelize, DataTypes) => {
     });
 
   };
+
+  Product.upload = async function ({ imageUrl, title, shortDescription, longDescription, userId }) {
+    const product = await Product.create({
+      imageUrl,
+      title,
+      shortDescription,
+      longDescription,
+      userId
+    });
+    return await Product.findByPk(product.id);
+  };
+
   return Product;
 };
 
