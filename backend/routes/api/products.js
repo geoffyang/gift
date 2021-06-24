@@ -45,7 +45,7 @@ router.post('/', singleMulterUpload("image"),
                 longDescription,
                 userId } = req.body;
             const imageUrl = await singlePublicFileUpload(req.file);
-            const product = await Product.upload({ username, email, password, imageUrl })
+            const product = await Product.upload({ imageUrl, title, shortDescription, longDescription, userId })
         } catch (err){
             next(err)
         }

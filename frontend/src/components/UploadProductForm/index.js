@@ -20,18 +20,20 @@ export default function UploadProductForm() {
     // must be logged in to upload
     if (!sessionUser) return <Redirect to='/' />;
 
+    console.log("user object", sessionUser.id);
     const handleSubmit = e => {
         e.preventDefault();
         let newErrors = [];
         return dispatch(productActions.uploadProductThunk({
             title, shortDescription,
-            longDescription, image,
+            longDescription, image, id:sessionUser.id
         })).then(() => {
             setTitle("");
             setShortDescription("");
             setLongDescription("");
             setImage(null);
         }).catch(async (res) => {
+            console.log("####### res line 35", res);
             const data = await res.json();
             if (data && data.errors) {
                 newErrors = data.errors;
@@ -48,7 +50,7 @@ export default function UploadProductForm() {
             style={{ display: "flex", flexFlow: "column" }}
             onSubmit={handleSubmit}>
 
-            <h2>Upload your product</h2>
+            <h2>Upload your product </h2>
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>

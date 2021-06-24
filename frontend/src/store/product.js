@@ -42,8 +42,8 @@ export const getProducts = () => async dispatch => {
 
 // upload product POST /api/products
 export const uploadProductThunk = (product) => async (dispatch) => {
-    const { title, image, images, longDescription, shortDescription } = product;
-    const userId = useSelector((state) => state.session.user.userId);
+    const { title, image, images, longDescription, shortDescription, userId } = product;
+    // const userId = useSelector((state) => state.session.user.userId);
 
     const formData = new FormData();
     formData.append("title", title)
