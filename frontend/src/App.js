@@ -37,6 +37,7 @@ function App() {
           </Route>
           <Route exact path="/products">
             <ProductsDisplay />
+            <Navigation isLoaded={isLoaded} />
           </Route>
 
         </Switch>

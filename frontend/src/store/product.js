@@ -11,7 +11,7 @@ const REMOVE_PRODUCT = "products/remove"
 
 const loadProducts = products => ({
     type: LOAD_PRODUCTS,
-    payload: products
+    productsArr: products
 })
 
 const setProduct = (product) => {
@@ -29,9 +29,10 @@ export const getProducts = () => async dispatch => {
     const response = await csrfFetch('/api/products')
     if (response.ok) {
         const products = await response.json();
-        console.log("#############", products);
+        console.log("########THUNK", products);
+        // products is an array of objs at this point
         dispatch(loadProducts(products))
-    } else console.log("we couldn't fetch on thunk ln 34");
+    }
 }
 
 // upload product POST /api/products
@@ -72,17 +73,17 @@ export const uploadProduct = (product) => async (dispatch) => {
 //                    REDUCER                       */
 //************************************************* */
 
-const initialState = { product: "woof" }
+const initialState = { product: {} }
 
 export default function productReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
         case LOAD_PRODUCTS:
-            const allProducts = {};
-            action.payload.forEach(product => {
-                allProducts[product.id] = product;
+            newState = {};
+            action.productsArr.forEach(product => {
+                newState[product.id] = product;
             })
-            return action.payload;
+            return newState;
         case SET_PRODUCT:
             newState = Object.assign({}, state);
             newState.product = action.payload;

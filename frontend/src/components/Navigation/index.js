@@ -33,7 +33,9 @@ function Navigation({ isLoaded }) {
                         style={{ marginRight: '1rem'}}
                         className='links' exact to="/">Home</NavLink>
                     <NavLink
-                        style={{ marginRight: '1rem' }} className='links' exact to="/upload">Upload a Product</NavLink>
+                        style={{ marginRight: '1rem' }} className='links' exact to="/upload">Upload</NavLink>
+                    <NavLink
+                        style={{ marginRight: '1rem' }} className='links' exact to="/products">Products</NavLink>
 
                     {isLoaded && sessionLinks}
                 </li>

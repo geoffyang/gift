@@ -33,12 +33,9 @@ export default function UploadProductForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <br />
-            <br />
-            <br />
-            <br />
-            <h2>Hello from product uploadProduct</h2>
+        <form className="container" onSubmit={handleSubmit}>
+
+            <h2>Upload your product</h2>
             <ul>
                 {errors.map((error, idx) => <li key={idx}>{error}</li>)}
             </ul>
