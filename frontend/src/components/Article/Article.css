@@ -1,5 +1,5 @@
 .article {
-    width: 100%;
+    width: 75%;
     float: left;
     height: auto;
     overflow: hidden;
@@ -11,6 +11,10 @@
     margin-bottom: 20px;
     text-align: center;
     box-sizing: border-box;
+}
+
+img {
+    max-width: 200px;
 }
 
 .article__image-wrapper {
@@ -37,4 +41,3 @@
     border: 0;
     font-size: 100%;
 }
-

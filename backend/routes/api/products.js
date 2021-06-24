@@ -50,14 +50,18 @@ router.post('/', singleMulterUpload("image"),
         } catch (err) {
             next(err)
         }
-        // await setTokenCookie(res, user);
     }))
 
 // GET /api/products
 router.get('/', asyncHandler(async (req, res, next) => {
-    const products = await Product.findAll();
+    const products = await Product.findAll({
+        order: [['id', 'DESC']],
+        limit: 10
+    });
     return res.json(products)
 }))
+
+// DELETE /api/products/:id
 
 module.exports = router;
 

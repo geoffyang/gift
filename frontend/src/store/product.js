@@ -70,7 +70,8 @@ export const uploadProductThunk = (product) => async (dispatch) => {
     const data = await response.json();
     // update redux state
     dispatch(addProduct(data.product));
-    return response;
+
+    return response; //==============>
 }
 // delete product DELETE /api/products/:id
 // export const deleteProductThunk = (id) => async(dispatch => {

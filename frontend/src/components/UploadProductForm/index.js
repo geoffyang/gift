@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import * as productActions from "../../store/product";
 
 import './UploadProductForm.css';
@@ -8,6 +8,7 @@ import './UploadProductForm.css';
 export default function UploadProductForm() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const sessionUser = useSelector((state) => state.session.user);
     const [title, setTitle] = useState("");
     const [shortDescription, setShortDescription] = useState("");
@@ -20,20 +21,20 @@ export default function UploadProductForm() {
     // must be logged in to upload
     if (!sessionUser) return <Redirect to='/' />;
 
-    console.log("user object", sessionUser.id);
     const handleSubmit = e => {
         e.preventDefault();
         let newErrors = [];
-        return dispatch(productActions.uploadProductThunk({
+        // <<<<<<<<<<<=================
+        dispatch(productActions.uploadProductThunk({
             title, shortDescription,
-            longDescription, image, userId:sessionUser.id
+            longDescription, image, userId: sessionUser.id
         })).then(() => {
             setTitle("");
             setShortDescription("");
             setLongDescription("");
             setImage(null);
+            history.push('/products')
         }).catch(async (res) => {
-            console.log("####### res line 35", res);
             const data = await res.json();
             if (data && data.errors) {
                 newErrors = data.errors;
@@ -41,6 +42,7 @@ export default function UploadProductForm() {
             }
         })
     }
+
     const updateFile = (e) => {
         const file = e.target.files[0];
         if (file) setImage(file);
