@@ -12,8 +12,8 @@ export default function UploadProductForm() {
     const [title, setTitle] = useState("");
     const [shortDescription, setShortDescription] = useState("");
     const [longDescription, setLongDescription] = useState("");
-    const [image, setImage] = useState("");
-    const [images, setImages] = useState("");
+    const [image, setImage] = useState(null);
+    // const [images, setImages] = useState("");
 
     const [errors, setErrors] = useState([]);
 
@@ -22,18 +22,34 @@ export default function UploadProductForm() {
 
     const handleSubmit = e => {
         e.preventDefault();
-
+        let newErrors = [];
         return dispatch(productActions.uploadProduct({
             title,
             shortDescription,
             longDescription,
             image,
-            images
-        }))
+            // images
+        })).then(() => {
+            setTitle("");
+            setShortDescription("");
+            setLongDescription("");
+            setImage(null);
+        }).catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) {
+                newErrors = data.errors;
+                setErrors(newErrors)
+            }
+        })
     }
-
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImage(file);
+    };
     return (
-        <form className="container" onSubmit={handleSubmit}>
+        <form className="container"
+            style={{ display: "flex", flexFlow: "column" }}
+            onSubmit={handleSubmit}>
 
             <h2>Upload your product</h2>
             <ul>
@@ -66,15 +82,9 @@ export default function UploadProductForm() {
 
                 />
             </label>
-            {/* <label>
-                Upload Image
-                <input
-                    type="file"
-                    value={XXXXX}
-                    onChange={(e) => setXXXXX(e.target.value)}
-
-                />
-            </label> */}
+            <label>
+                <input type="file" onChange={updateFile} />
+            </label>
             <button type="submit">Submit Product</button>
         </form>
 

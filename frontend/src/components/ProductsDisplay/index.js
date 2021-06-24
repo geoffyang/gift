@@ -12,7 +12,7 @@ export default function ProductsDisplay() {
     const sessionUser = useSelector((state) => state.session.user);
     const allProductsObj = useSelector((state) => state.products);
 
-    // must be logged in to upload
+    // must be logged in
     // if (!sessionUser) return <Redirect to='/' />;
 
     useEffect(() => {

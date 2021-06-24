@@ -50,7 +50,6 @@ router.post('/', singleMulterUpload("image"), validateUpload, asyncHandler(async
 // GET /api/products
 router.get('/', asyncHandler(async (req, res, next) => {
     const products = await Product.findAll();
-    console.log("****DB", products);
     return res.json(products)
 }))
 

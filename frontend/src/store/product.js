@@ -6,16 +6,19 @@ import { useSelector } from "react-redux";
 //************************************************* */
 
 const LOAD_PRODUCTS = "products/load"
-const SET_PRODUCT = "products/set"
+const ADD_PRODUCT = "products/add"
 const REMOVE_PRODUCT = "products/remove"
 
 const loadProducts = products => ({
     type: LOAD_PRODUCTS,
-    productsArr: products
+    products: products
 })
 
-const setProduct = (product) => {
-    return { type: SET_PRODUCT, payload: product }
+const addProduct = (product) => {
+    return {
+        type: ADD_PRODUCT,
+        product: product
+    }
 }
 // const removeProduct = () => {
 //     return { type: REMOVE_PRODUCT }
@@ -28,9 +31,8 @@ const setProduct = (product) => {
 export const getProducts = () => async dispatch => {
     const response = await csrfFetch('/api/products')
     if (response.ok) {
+        // products is an array of objs
         const products = await response.json();
-        console.log("########THUNK", products);
-        // products is an array of objs at this point
         dispatch(loadProducts(products))
     }
 }
@@ -64,7 +66,7 @@ export const uploadProduct = (product) => async (dispatch) => {
     });
     const data = await response.json();
     // update redux state
-    dispatch(setProduct(data.product));
+    dispatch(addProduct(data.product));
     return response;
 }
 
@@ -80,14 +82,14 @@ export default function productReducer(state = initialState, action) {
     switch (action.type) {
         case LOAD_PRODUCTS:
             newState = {};
-            action.productsArr.forEach(product => {
+            action.products.forEach(product => {
                 newState[product.id] = product;
-            })
+            }) // normalize arr into obj
             return newState;
-        case SET_PRODUCT:
+        case ADD_PRODUCT:
             newState = Object.assign({}, state);
             newState.product = action.payload;
-            return newState;
+            return {woof:"hello"};
         case REMOVE_PRODUCT:
             newState = Object.assign({}, state);
             newState.product = null;
