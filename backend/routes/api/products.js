@@ -46,11 +46,11 @@ router.post('/', singleMulterUpload("image"),
                 userId } = req.body;
             const imageUrl = await singlePublicFileUpload(req.file);
             const product = await Product.upload({ imageUrl, title, shortDescription, longDescription, userId })
-        } catch (err){
+            return res.json({ product })
+        } catch (err) {
             next(err)
         }
         // await setTokenCookie(res, user);
-        return res.json({ product })
     }))
 
 // GET /api/products

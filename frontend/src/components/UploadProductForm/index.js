@@ -26,7 +26,7 @@ export default function UploadProductForm() {
         let newErrors = [];
         return dispatch(productActions.uploadProductThunk({
             title, shortDescription,
-            longDescription, image, id:sessionUser.id
+            longDescription, image, userId:sessionUser.id
         })).then(() => {
             setTitle("");
             setShortDescription("");
