@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 
 const LOAD_PRODUCTS = "products/load"
 const ADD_PRODUCT = "products/add"
-const REMOVE_PRODUCT = "products/remove"
+const REMOVE_PRODUCT = "products/delete"
 
 const loadProducts = products => ({
     type: LOAD_PRODUCTS,
@@ -20,9 +20,12 @@ const addProduct = (product) => {
         product: product
     }
 }
-// const removeProduct = () => {
-//     return { type: REMOVE_PRODUCT }
-// }
+const deleteProduct = (id) => {
+    return {
+        type: REMOVE_PRODUCT,
+        id: id
+    }
+}
 
 //************************************************* */
 //                    THUNKS                        */
@@ -38,7 +41,7 @@ export const getProducts = () => async dispatch => {
 }
 
 // upload product POST /api/products
-export const uploadProduct = (product) => async (dispatch) => {
+export const uploadProductThunk = (product) => async (dispatch) => {
     const { title, image, images, longDescription, shortDescription } = product;
     const userId = useSelector((state) => state.session.user.userId);
 
@@ -69,13 +72,16 @@ export const uploadProduct = (product) => async (dispatch) => {
     dispatch(addProduct(data.product));
     return response;
 }
+// delete product DELETE /api/products/:id
+// export const deleteProductThunk = (id) => async(dispatch => {
 
+// }
 
 //************************************************* */
 //                    REDUCER                       */
 //************************************************* */
 
-const initialState = { product: {} }
+const initialState = { product: {} ,}
 
 export default function productReducer(state = initialState, action) {
     let newState;
@@ -89,7 +95,7 @@ export default function productReducer(state = initialState, action) {
         case ADD_PRODUCT:
             newState = Object.assign({}, state);
             newState.product = action.payload;
-            return {woof:"hello"};
+            return { woof: "hello" };
         case REMOVE_PRODUCT:
             newState = Object.assign({}, state);
             newState.product = null;

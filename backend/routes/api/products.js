@@ -7,7 +7,7 @@ const { check } = require('express-validator');
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 const { Product } = require('../../db/models');
 const { handleValidationErrors } = require('../../utils/validation')
-const { singlePublicFileUpload, singleMulterUpload} = require('../../awsS3')
+const { singlePublicFileUpload, singleMulterUpload } = require('../../awsS3')
 
 const router = express.Router()
 
@@ -27,7 +27,7 @@ const validateUpload = [
     //     .exists({ checkFalsy: true })
     //     .isLength({ min: 2 })
     //     .withMessage("Password must be 2 or more characters"),
-    ,handleValidationErrors
+    , handleValidationErrors
 ]
 
 /*******************************************/
@@ -35,17 +35,23 @@ const validateUpload = [
 /*******************************************/
 
 // POST /api/products to upload
-router.post('/', singleMulterUpload("image"), validateUpload, asyncHandler(async (req, res, next) => {
-    const {
-        title,
-        shortDescription,
-        longDescription,
-        userId } = req.body;
-    const imageUrl = await singlePublicFileUpload(req.file)
-    const product = await Product.upload({ username, email, password, imageUrl })
-    // await setTokenCookie(res, user);
-    return res.json({product})
-}))
+router.post('/', singleMulterUpload("image"),
+    // validateUpload,
+    asyncHandler(async (req, res, next) => {
+        try {
+            const {
+                title,
+                shortDescription,
+                longDescription,
+                userId } = req.body;
+            const imageUrl = await singlePublicFileUpload(req.file);
+            const product = await Product.upload({ username, email, password, imageUrl })
+        } catch (err){
+            next(err)
+        }
+        // await setTokenCookie(res, user);
+        return res.json({ product })
+    }))
 
 // GET /api/products
 router.get('/', asyncHandler(async (req, res, next) => {

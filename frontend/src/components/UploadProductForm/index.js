@@ -23,12 +23,9 @@ export default function UploadProductForm() {
     const handleSubmit = e => {
         e.preventDefault();
         let newErrors = [];
-        return dispatch(productActions.uploadProduct({
-            title,
-            shortDescription,
-            longDescription,
-            image,
-            // images
+        return dispatch(productActions.uploadProductThunk({
+            title, shortDescription,
+            longDescription, image,
         })).then(() => {
             setTitle("");
             setShortDescription("");
