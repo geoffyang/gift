@@ -26,7 +26,12 @@ const setProduct = (product) => {
 //************************************************* */
 
 export const getProducts = () => async dispatch => {
-    const response = await fetch('api/products')
+    const response = await csrfFetch('/api/products')
+    if (response.ok) {
+        const products = await response.json();
+        console.log("#############", products);
+        dispatch(loadProducts(products))
+    } else console.log("we couldn't fetch on thunk ln 34");
 }
 
 // upload product POST /api/products
@@ -67,11 +72,17 @@ export const uploadProduct = (product) => async (dispatch) => {
 //                    REDUCER                       */
 //************************************************* */
 
-const initialState = { product: null }
+const initialState = { product: "woof" }
 
 export default function productReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
+        case LOAD_PRODUCTS:
+            const allProducts = {};
+            action.payload.forEach(product => {
+                allProducts[product.id] = product;
+            })
+            return action.payload;
         case SET_PRODUCT:
             newState = Object.assign({}, state);
             newState.product = action.payload;

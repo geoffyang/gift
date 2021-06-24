@@ -49,8 +49,8 @@ router.post('/', singleMulterUpload("image"), validateUpload, asyncHandler(async
 
 // GET /api/products
 router.get('/', asyncHandler(async (req, res, next) => {
-    const response = await Product.findAll();
-    const products = await response.json();
+    const products = await Product.findAll();
+    console.log("##########success", products);
     return res.json(products)
 }))
 

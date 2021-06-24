@@ -9,6 +9,7 @@ import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import Splash from "./components/Splash"
 import UploadProductForm from "./components/UploadProductForm"
+import ProductsDisplay from "./components/ProductsDisplay"
 
 
 function App() {
@@ -31,9 +32,13 @@ function App() {
             <UploadProductForm />
             <Navigation isLoaded={isLoaded} />
           </Route>
-          <Route path="/signup">
+          <Route exact path="/signup">
             <SignupFormPage />
           </Route>
+          <Route exact path="/products">
+            <ProductsDisplay />
+          </Route>
+
         </Switch>
       )}
     </>

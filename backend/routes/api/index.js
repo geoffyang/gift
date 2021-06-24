@@ -18,6 +18,8 @@ router.use('/users', usersRouter)
 // POST api/users to register
 
 router.use('/products', productsRouter)
+// GET api/products
+// POST api/products
 
 /*******************************************/
 /*              /API Routes                */
