@@ -1,9 +1,11 @@
 import { csrfFetch } from './csrf'
-import { useSelector } from "react-redux";
 
-//************************************************* */
-//                    ACTIONS                       */
-//************************************************* */
+
+//********************************************** */
+//                                               */
+//                    ACTIONS                    */
+//                                               */
+//********************************************** */
 
 const LOAD_PRODUCTS = "products/load"
 const ADD_PRODUCT = "products/add"
@@ -27,9 +29,11 @@ const deleteProduct = (id) => {
     }
 }
 
-//************************************************* */
-//                    THUNKS                        */
-//************************************************* */
+//********************************************** */
+//                                               */
+//                    THUNKS                     */
+//                                               */
+//********************************************** */
 
 export const getProducts = () => async dispatch => {
     const response = await csrfFetch('/api/products')
@@ -68,21 +72,28 @@ export const uploadProductThunk = (product) => async (dispatch) => {
         body: formData,
     });
     const data = await response.json();
+    console.log("what is the data shape sent to add_one reducer>", data);
     // update redux state
     dispatch(addProduct(data.product));
 
     return response; //==============>
 }
 // delete product DELETE /api/products/:id
-// export const deleteProductThunk = (id) => async(dispatch => {
+export const deleteProductThunk = (id) => async (dispatch) => {
 
-// }
+    const response = await csrfFetch(`/api/products/${id}`, { method: `DELETE` })
+    id = await response.json()
+    dispatch(deleteProduct(id));
 
-//************************************************* */
-//                    REDUCER                       */
-//************************************************* */
+}
 
-const initialState = { product: {} ,}
+//*******************************************/
+//                                          */
+//                 REDUCER                  */
+//                                          */
+//*******************************************/
+
+const initialState = { product: {}, }
 
 export default function productReducer(state = initialState, action) {
     let newState;
@@ -95,11 +106,11 @@ export default function productReducer(state = initialState, action) {
             return newState;
         case ADD_PRODUCT:
             newState = Object.assign({}, state);
-            newState.product = action.payload;
-            return { woof: "hello" };
+            newState[action.product.id] = action.product;
+            return newState;
         case REMOVE_PRODUCT:
             newState = Object.assign({}, state);
-            newState.product = null;
+            delete newState[action.id];
             return newState;
 
         default:
