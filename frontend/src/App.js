@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import Splash from "./components/Splash"
 import UploadProductForm from "./components/UploadProductForm"
 import ProductsDisplay from "./components/ProductsDisplay"
+import MainArticle from "./components/MainArticle"
 
 
 function App() {
@@ -37,6 +38,10 @@ function App() {
           </Route>
           <Route exact path="/products">
             <ProductsDisplay />
+            <Navigation isLoaded={isLoaded} />
+          </Route>
+          <Route exact path="/products/:id">
+            <MainArticle />
             <Navigation isLoaded={isLoaded} />
           </Route>
 
