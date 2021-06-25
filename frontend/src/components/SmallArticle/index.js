@@ -1,7 +1,7 @@
 import{Link } from 'react-router-dom'
 import './SmallArticle.css';
 
-export default function SmallArticle({ imageUrl,id, title }) {
+export default function SmallArticle({ imageUrl,id, title, shortDescription }) {
 
 
     return (
@@ -13,6 +13,7 @@ export default function SmallArticle({ imageUrl,id, title }) {
             </div>
             <div className="article__content-wrapper">
                 <h1>{title}</h1>
+                <div>{shortDescription}</div>
             </div>
         </div>
     )

@@ -2,6 +2,6 @@
     margin-top: 100px;
     display: flex;
     /* flex-direction: column-reverse; */
-    flex-wrap:  wrap-reverse;
-    justify-content: center ;
+    flex-flow: column wrap-reverse;
+    justify-content: center;
 }

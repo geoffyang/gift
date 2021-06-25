@@ -1,7 +1,12 @@
 .container {
     margin-top: 100px;
     display: flex;
+    width:500px;
     /* flex-direction: column-reverse; */
-    flex-wrap: wrap-reverse;
-    justify-content: center;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.main-article__image-wrapper {
+    height: fit-content;
 }

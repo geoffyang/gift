@@ -25,11 +25,12 @@ export default function ProductsDisplay() {
                         imageUrl={allProductsObj[key].imageUrl}
                         key={allProductsObj[key].id}
                         id={allProductsObj[key].id}
-                        title={allProductsObj[key].title} />
+                        title={allProductsObj[key].title}
+                        shortDescription={allProductsObj[key].shortDescription}
+                    />
                 })}
         </div>
 
     )
 
 }
-
