@@ -5,13 +5,13 @@ export default function SmallArticle({ imageUrl,id, title, shortDescription }) {
 
 
     return (
-        <div className="article">
-            <div className="article__image-wrapper">
+        <div className="small-article__container">
+            <div className="small-article__image-wrapper">
                 <Link to={`/products/${id}`}>
                     {imageUrl && <img src={imageUrl} alt="product" />}
                 </Link>
             </div>
-            <div className="article__content-wrapper">
+            <div className="small-article__content-wrapper">
                 <h1>{title}</h1>
                 <div>{shortDescription}</div>
             </div>

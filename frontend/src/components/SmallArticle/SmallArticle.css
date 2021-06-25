@@ -1,4 +1,4 @@
-.article {
+.small-article__container {
     width: 75%;
     float: left;
     height: auto;
@@ -11,13 +11,15 @@
     margin-bottom: 20px;
     text-align: center;
     box-sizing: border-box;
+    display: flex ;
+    justify-content:center;
 }
 
 img {
     max-width: 200px;
 }
 
-.article__image-wrapper {
+.small-article__image-wrapper {
     display: block;
     /* vertical-align: baseline; */
     overflow: hidden;
@@ -33,7 +35,7 @@ img {
     text-align: center;
 }
 
-.article__content-wrapper {
+.small-article__content-wrapper {
     display: block;
     box-sizing: border-box;
     margin: 0;
@@ -41,4 +43,3 @@ img {
     border: 0;
     font-size: 100%;
 }
-

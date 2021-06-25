@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 //internal imports
 import './BigArticle.css'
 import SmallArticle from '../SmallArticle'
+import Discussion from '../Discussion'
 import * as productActions from "../../store/product";
 
 export default function BigArticle() {
@@ -12,21 +13,15 @@ export default function BigArticle() {
     const { id } = useParams();
     const [isLoaded, setIsLoaded] = useState(false);
 
-
-
-
-
     useEffect(() => {
         dispatch(productActions.getProducts())
         .then(() => { setIsLoaded(true) })
     }, [dispatch])
 
-
     const product = useSelector(state => state.products[id])
 
-
     return (
-        <div className="container">
+        <div className="big-article__container">
             {isLoaded && (
                 <>
 

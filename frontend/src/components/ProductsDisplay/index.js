@@ -18,12 +18,13 @@ export default function ProductsDisplay() {
 
     return (
 
-        <div className="container">
+        <div className="product-display__container">
             {Object.keys(allProductsObj)
                 .map((key) => {
                     return <SmallArticle
                         imageUrl={allProductsObj[key].imageUrl}
                         key={allProductsObj[key].id}
+                        // key={Math.random().toString(36).substr(2, 9)}
                         id={allProductsObj[key].id}
                         title={allProductsObj[key].title}
                         shortDescription={allProductsObj[key].shortDescription}

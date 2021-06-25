@@ -1,7 +1,7 @@
-.container {
+.product-display__container {
     margin-top: 100px;
     display: flex;
     /* flex-direction: column-reverse; */
-    flex-flow: column wrap-reverse;
-    justify-content: center;
+    flex-flow: column-reverse wrap-reverse;
+    align-items: center;
 }
