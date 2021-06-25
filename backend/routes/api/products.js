@@ -35,7 +35,7 @@ const validateUpload = [
 /*******************************************/
 
 // POST /api/products to upload
-router.post('/', singleMulterUpload("image"),
+router.post('/', requireAuth,singleMulterUpload("image"),
     // validateUpload,
     asyncHandler(async (req, res, next) => {
         try {
@@ -53,8 +53,10 @@ router.post('/', singleMulterUpload("image"),
     }))
 
 // GET /api/products
-router.get('/', asyncHandler(async (req, res, next) => {
-    const products = await Product.findAll({
+router.get('/',
+
+    asyncHandler(async (req, res, next) => {
+        const products = await Product.findAll({
         order: [['id', 'DESC']],
         limit: 10
     });
@@ -62,6 +64,15 @@ router.get('/', asyncHandler(async (req, res, next) => {
 }))
 
 // DELETE /api/products/:id
+router.delete('/:id', requireAuth, asyncHandler(async (req, res, next) => {
+    const product = await Product.findByPk(req.params.id)
+    if (+req.user.id === +product.userId) {
+        console.log(`user ${req.user.id} DEL HIS OWN ITEM`);
+        await product.destroy()
+    }
+
+    return res.json(req.params.id)
+}))
 
 module.exports = router;
 
