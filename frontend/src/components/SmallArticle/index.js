@@ -1,7 +1,7 @@
 import{Link } from 'react-router-dom'
-import './Article.css';
+import './SmallArticle.css';
 
-export default function Article({ imageUrl,id, title }) {
+export default function SmallArticle({ imageUrl,id, title }) {
 
 
     return (

@@ -10,7 +10,7 @@ import Navigation from "./components/Navigation";
 import Splash from "./components/Splash"
 import UploadProductForm from "./components/UploadProductForm"
 import ProductsDisplay from "./components/ProductsDisplay"
-import MainArticle from "./components/MainArticle"
+import BigArticle from "./components/BigArticle"
 
 
 function App() {
@@ -41,7 +41,7 @@ function App() {
             <Navigation isLoaded={isLoaded} />
           </Route>
           <Route exact path="/products/:id">
-            <MainArticle />
+            <BigArticle />
             <Navigation isLoaded={isLoaded} />
           </Route>
 

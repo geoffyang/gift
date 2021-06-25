@@ -3,11 +3,11 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 //internal imports
-import './MainArticle.css'
-import Article from '../Article'
+import './BigArticle.css'
+import SmallArticle from '../SmallArticle'
 import * as productActions from "../../store/product";
 
-export default function MainArticle() {
+export default function BigArticle() {
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -27,7 +27,7 @@ export default function MainArticle() {
         <div className="container">
             <div className="main-article__image-wrapper">
                 {product.imageUrl && <img src={product.imageUrl} alt="product" />}
-                Hello from Main Article
+                Hello from Big Article
             </div>
             <div className="main-article__content-wrapper">
 

@@ -1,6 +1,5 @@
 import { csrfFetch } from './csrf'
 
-
 //********************************************** */
 //                                               */
 //                    ACTIONS                    */
@@ -72,7 +71,6 @@ export const uploadProductThunk = (product) => async (dispatch) => {
         body: formData,
     });
     const data = await response.json();
-    console.log("what is the data shape sent to add_one reducer>", data);
     // update redux state
     dispatch(addProduct(data.product));
 

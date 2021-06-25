@@ -4,7 +4,7 @@ import * as productActions from "../../store/product";
 
 //internal imports
 import './ProductsDisplay.css';
-import Article from '../Article'
+import SmallArticle from '../SmallArticle'
 
 export default function ProductsDisplay() {
 
@@ -21,7 +21,7 @@ export default function ProductsDisplay() {
         <div className="container">
             {Object.keys(allProductsObj)
                 .map((key) => {
-                    return <Article
+                    return <SmallArticle
                         imageUrl={allProductsObj[key].imageUrl}
                         key={allProductsObj[key].id}
                         id={allProductsObj[key].id}
