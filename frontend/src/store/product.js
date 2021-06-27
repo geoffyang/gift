@@ -45,13 +45,11 @@ export const getProducts = () => async dispatch => {
 
 export const getOneProduct = (id) => async dispatch => {
     await csrfFetch(`/api/products/${id}`)
-
 }
 
 // upload product POST /api/products
 export const uploadProductThunk = (product) => async (dispatch) => {
     const { title, image, images, longDescription, shortDescription, userId } = product;
-    // const userId = useSelector((state) => state.session.user.userId);
 
     const formData = new FormData();
     formData.append("title", title)
@@ -88,6 +86,38 @@ export const deleteProductThunk = (id) => async (dispatch) => {
     dispatch(deleteProduct(id));
 }
 
+export const editProductThunk = (product) => async (dispatch) => {
+    const { title, image, longDescription, shortDescription, userId } = product;
+
+    const formData = new FormData();
+    formData.append("title", title)
+    formData.append("shortDescription", shortDescription)
+    formData.append("longDescription", longDescription)
+    formData.append("userId", userId)
+
+    // for multiple files
+    // if (images && images.length !== 0) {
+    //     for (var i = 0; i < images.length; i++) {
+    //         formData.append("images", images[i]);
+    //     }
+    // }
+
+    // for single file
+    if (image) formData.append("image", image);
+
+    // update database
+    const response = await csrfFetch('/api/products', {
+        method: 'PUT',
+        headers: { "Content-Type": "multipart/form-data" },
+        body: formData,
+    });
+    const data = await response.json();
+    // update redux state
+    dispatch(addProduct(data.product));
+
+    return response;
+}
+
 //*******************************************/
 //                                          */
 //                 REDUCER                  */
@@ -120,27 +150,16 @@ export default function productReducer(state = initialState, action) {
 }
 
 
-// {
-//     "items": {
-//         1: { name: "blue" },
-//         2: { name: "green" }
-//     }
-// }
+// products: {
+        // 1: {
+        //      title: "tiny purifier",
+        //      shortDescription: "",
+        //      longDescription: "",
+        //      imageUrl,
+        //      userId
+        // }
+// },
+// state: {},
+// discussion: {},
 
 
-// {
-//     "items": {
-//         1: { name: "blue" },
-//         2: { name: "green" },
-//         3: { name: "red" }
-//     }
-// }
-
-// {
-//     newItem:{name:"red"},
-//     "items": {
-//         1: { name: "blue" },
-//         2: { name: "green" },
-//         3: { name: "red" }
-//     }
-// }

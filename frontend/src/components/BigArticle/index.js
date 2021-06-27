@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 //internal imports
 import './BigArticle.css'
-import SmallArticle from '../SmallArticle'
+// import SmallArticle from '../SmallArticle'
 import Discussion from '../Discussion'
 import * as productActions from "../../store/product";
 

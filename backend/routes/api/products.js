@@ -55,13 +55,11 @@ router.post('/', requireAuth, singleMulterUpload("image"),
 
 // GET /api/products
 router.get('/',
-
     asyncHandler(async (req, res, next) => {
         const products = await Product.findAll({
             order: [['id', 'DESC']],
             limit: 10
         });
-
         return res.json(products)
     })
 )
@@ -70,8 +68,7 @@ router.get('/',
 router.get('/:id', asyncHandler(async (req, res) => {
     const id = +req.params.id
     console.log(`type of id is ${typeof id}`);
-    const product = Product.findByPk(id)
-    console.log(product);
+    const product = await Product.findByPk(id)
 }))
 
 // DELETE /api/products/:id
@@ -89,7 +86,7 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res, next) => {
 
 router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
     const id = +req.params.id;
-    const product = Product.findByPk(id);
+    const product = await Product.findByPk(id);
 
 }))
 
