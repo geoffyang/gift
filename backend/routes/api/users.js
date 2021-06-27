@@ -35,10 +35,10 @@ const validateSignup = [
 /*******************************************/
 
 // POST /api/users to sign up
-router.post('/', singleMulterUpload("image"), validateSignup, asyncHandler(async (req, res, next) => {
+router.post('/',  validateSignup, asyncHandler(async (req, res, next) => {
     const { username, email, password } = req.body;
-    const profilePicUrl = await singlePublicFileUpload(req.file)
-    const user = await User.signup({ username, email, password, profilePicUrl })
+    // const profilePicUrl = await singlePublicFileUpload(req.file)
+    const user = await User.signup({ username, email, password  })
     await setTokenCookie(res, user);
     return res.json({user})
 }))
