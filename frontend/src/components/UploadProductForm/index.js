@@ -49,7 +49,7 @@ export default function UploadProductForm() {
     };
     return (
         <form className="container"
-            style={{ display: "flex", flexFlow: "column" }}
+            // style={{ display: "flex", flexFlow: "column" }}
             onSubmit={handleSubmit}>
 
             <h2>Upload your product </h2>
@@ -76,12 +76,11 @@ export default function UploadProductForm() {
             </label>
             <label>
                 Long Description
-                <input
-                    type="text"
+                <textarea
                     value={longDescription}
                     onChange={(e) => setLongDescription(e.target.value)}
 
-                />
+                ></textarea>
             </label>
             <label>
                 <input type="file" onChange={updateFile} />

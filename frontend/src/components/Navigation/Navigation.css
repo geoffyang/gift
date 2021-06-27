@@ -21,6 +21,8 @@
 
 .nav__links {
     margin-right: 3rem;
+    display: flex;
+    align-items: center;
     /* font-size: 1.3rem; */
     list-style-position: initial;
     list-style-image: initial;
@@ -41,5 +43,5 @@
     color: white;
     text-decoration: none;
     font-family: Allerta, Allan, Lato, Tahoma, Roboto;
-    font-size:.8rem
+    font-size: .8rem
 }

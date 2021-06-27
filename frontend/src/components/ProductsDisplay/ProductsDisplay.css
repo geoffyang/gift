@@ -1,7 +1,10 @@
 .product-display__container {
-    margin-top: 100px;
-    display: flex;
-    /* flex-direction: column-reverse; */
+    /* margin-top: 100px;
+
+    flex-direction: column-reverse;
     flex-flow: column-reverse wrap-reverse;
-    align-items: center;
+    align-items: center; */
+    display: flex;
+    column-gap: 30px;
+    margin-top: 100px;
 }

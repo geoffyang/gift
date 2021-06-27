@@ -25,6 +25,8 @@ export default function BigArticle() {
 
     }
 
+    const editArticle = () => {return null}
+
     const product = useSelector(state => state.products[id])
 
     return (
@@ -41,7 +43,7 @@ export default function BigArticle() {
                         {product?.longDescription}
                     </div>
                     <div className="big-article__user-actions">
-                        <i class="far fa-edit" />
+                        <i class="far fa-edit" onClick={editArticle}/>
                         <i class="far fa-trash-alt" onClick={deleteArticle}></i>
                     </div>
                     <Discussion />

@@ -87,10 +87,10 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res, next) => {
     return res.json(id)
 }))
 
-router.put('/:id', requireAuth(async (req, res) => {
+router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
     const id = +req.params.id;
     const product = Product.findByPk(id);
-    
+
 }))
 
 

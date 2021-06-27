@@ -43,7 +43,7 @@ function LoginFormPage() {
             <label for="password">Enter your pass: </label>
             <input type='password'
                 name="password"
-                placeholder="passworddd"
+                placeholder="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
             />
