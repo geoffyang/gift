@@ -1,12 +1,18 @@
 .big-article__container {
     margin-top: 100px;
     display: flex;
-    width:500px;
+    width: 100%;
     /* flex-direction: column-reverse; */
     flex-flow: column wrap;
     align-items: center;
 }
 
-.main-article__image-wrapper {
+.big-article__image-wrapper {
     height: fit-content;
+}
+
+.big-article__user-actions{
+    width:400px;
+    display:flex;
+    justify-content:flex-end;
 }

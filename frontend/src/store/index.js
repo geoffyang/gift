@@ -4,10 +4,12 @@ import thunk from 'redux-thunk';
 // internal packages
 import sessionReducer from './session';
 import productReducer from './product';
+import discussionReducer from './discussion';
 
 const rootReducer = combineReducers({
     session: sessionReducer,
-    products:productReducer
+    products: productReducer,
+    discussion: discussionReducer
 });
 
 let enhancer;

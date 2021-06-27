@@ -11,8 +11,9 @@
     margin-bottom: 20px;
     text-align: center;
     box-sizing: border-box;
-    display: flex ;
-    justify-content:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 img {
@@ -42,4 +43,8 @@ img {
     padding: 0;
     border: 0;
     font-size: 100%;
+}
+
+.small-article__content-wrapper h1 {
+    text-decoration: none;
 }

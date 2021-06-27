@@ -35,7 +35,7 @@ const validateUpload = [
 /*******************************************/
 
 // POST /api/products to upload
-router.post('/', requireAuth,singleMulterUpload("image"),
+router.post('/', requireAuth, singleMulterUpload("image"),
     // validateUpload,
     asyncHandler(async (req, res, next) => {
         try {
@@ -50,29 +50,49 @@ router.post('/', requireAuth,singleMulterUpload("image"),
         } catch (err) {
             next(err)
         }
-    }))
+    })
+)
 
 // GET /api/products
 router.get('/',
 
     asyncHandler(async (req, res, next) => {
         const products = await Product.findAll({
-        order: [['id', 'DESC']],
-        limit: 10
-    });
-    return res.json(products)
+            order: [['id', 'DESC']],
+            limit: 10
+        });
+
+        return res.json(products)
+    })
+)
+
+// GET /api/products/:id
+router.get('/:id', asyncHandler(async (req, res) => {
+    const id = +req.params.id
+    console.log(`type of id is ${typeof id}`);
+    const product = Product.findByPk(id)
+    console.log(product);
 }))
 
 // DELETE /api/products/:id
 router.delete('/:id', requireAuth, asyncHandler(async (req, res, next) => {
-    const product = await Product.findByPk(req.params.id)
+    const id = parseInt(req.params.id, 10)
+    const product = await Product.findByPk(id)
+
     if (+req.user.id === +product.userId) {
         console.log(`user ${req.user.id} DEL HIS OWN ITEM`);
         await product.destroy()
     }
 
-    return res.json(req.params.id)
+    return res.json(id)
 }))
+
+router.put('/:id', requireAuth(async (req, res) => {
+    const id = +req.params.id;
+    const product = Product.findByPk(id);
+    
+}))
+
 
 module.exports = router;
 

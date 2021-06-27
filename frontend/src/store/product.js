@@ -43,6 +43,11 @@ export const getProducts = () => async dispatch => {
     }
 }
 
+export const getOneProduct = (id) => async dispatch => {
+    await csrfFetch(`/api/products/${id}`)
+
+}
+
 // upload product POST /api/products
 export const uploadProductThunk = (product) => async (dispatch) => {
     const { title, image, images, longDescription, shortDescription, userId } = product;
@@ -78,11 +83,9 @@ export const uploadProductThunk = (product) => async (dispatch) => {
 }
 // delete product DELETE /api/products/:id
 export const deleteProductThunk = (id) => async (dispatch) => {
-
     const response = await csrfFetch(`/api/products/${id}`, { method: `DELETE` })
     id = await response.json()
     dispatch(deleteProduct(id));
-
 }
 
 //*******************************************/

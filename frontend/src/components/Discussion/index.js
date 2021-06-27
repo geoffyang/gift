@@ -8,5 +8,10 @@ import * as productActions from "../../store/product";
 
 
 export default function Discussion() {
+    return (
+        <>
 
+        </>
+
+    )
 }

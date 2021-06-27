@@ -23,8 +23,9 @@ export default function ProductsDisplay() {
                 .map((key) => {
                     return <SmallArticle
                         imageUrl={allProductsObj[key].imageUrl}
-                        key={allProductsObj[key].id}
-                        // key={Math.random().toString(36).substr(2, 9)}
+                        // key={allProductsObj[key].id}
+                        // key={key}
+                        key={Math.random().toString(36).substr(2, 9)}
                         id={allProductsObj[key].id}
                         title={allProductsObj[key].title}
                         shortDescription={allProductsObj[key].shortDescription}
