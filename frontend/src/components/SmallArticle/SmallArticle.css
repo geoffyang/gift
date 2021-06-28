@@ -8,16 +8,18 @@
     margin-top: 0px;
     margin-left: 0px;
     margin-right: 0;
-    margin-bottom: 20px;
     text-align: center;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center; */
+    margin-bottom: 20px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     padding: 16px;
     text-align: center;
-    background-color: #f1f1f1;
+    /* background-color: #f1f1f1; */
+    background-color: #ffff;
+    border: thin solid #f1f1f1;
     width: 400px;
 }
 
@@ -61,7 +63,7 @@
 @media screen and (max-width: 600px) {
     .small-article__container {
         width: 100%;
-        display: block;
+        display: flex;
         margin-bottom: 20px;
     }
 }

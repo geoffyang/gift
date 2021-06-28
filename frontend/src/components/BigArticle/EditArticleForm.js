@@ -8,7 +8,7 @@ export default function EditArticleForm({ setShowModal }) {
     const history = useHistory();
     const { id } = useParams();
     const sessionUser = useSelector((state) => state.session.user);
-    const product = useSelector(state => state.products[id])
+    const product = useSelector(state => state.products.products[id])
     const { title: initialTitle,
         shortDescription: initialShortDescription,
         longDescription: initialLongDescription,

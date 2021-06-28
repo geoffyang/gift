@@ -30,7 +30,13 @@ export default function BigArticle() {
     }
     const product = useSelector(state => state.products.products[id])
     const user = useSelector((state) => state.session.user);
-    // const discussions = useSelector(state => state.products.discussions)
+    const discussions = useSelector(state => state.products.discussions)
+    const relevantDiscussion = []
+    for (const property in discussions) {
+        if (discussions[property].productId === +id) {
+            relevantDiscussion.push(discussions[property])
+        }
+    }
     // const allDiscussion = useSelector(state => state.discussion)
 
     if (!user) return <Redirect to="/products" />
@@ -43,6 +49,7 @@ export default function BigArticle() {
             <i className="far fa-trash-alt" onClick={deleteArticle}></i>
         </div>)
     }
+    console.log('relevant discussion', relevantDiscussion);
 
     return (
         <div className="big-article__container">
@@ -55,16 +62,23 @@ export default function BigArticle() {
                     <div className="big-article__content-wrapper">
                         <h1>{product?.title}</h1>
                         <h3>{product?.shortDescription}</h3>
-                        <h3>{product?.longDescription}</h3>
+                        <span>{product?.longDescription}</span>
                     </div>
-
+                    <br />
                     {userActionButtons}
+                    <br />
                     {showModal && (
                         <Modal onClose={() => setShowModal(false)}>
                             <EditArticleForm setShowModal={setShowModal} />
                         </Modal>
                     )}
-                    {<Discussion productId={id} />}
+                    <h2>Discussion:</h2>
+                    {relevantDiscussion.length &&
+                        relevantDiscussion.map(d => {
+                            return <Discussion text={d.text} />
+                        })
+                    }
+
                 </>
             )}
         </div>

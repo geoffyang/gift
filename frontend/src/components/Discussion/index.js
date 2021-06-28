@@ -4,31 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 
 //internal imports
 import './Discussion.css'
-import * as discussionActions from "../../store/discussion";
+import * as productActions from "../../store/product";
 
-export default function Discussion({ productId }) {
+export default function Discussion({ text }) {
     const dispatch = useDispatch();
-    const allDiscussions = useSelector(state => state.discussions)
-    const [isLoaded, setIsLoaded] = useState(false);
 
-    if (Object.keys(allDiscussions).length >= 1) setIsLoaded(true)
 
     return (
+
         <div className="discussion__container">
 
-            {isLoaded && (
-                <>
-                    {Object.keys(allDiscussions)
-                        .map(key => {
-                            return (
-                                <div key={key}>
-                                    {allDiscussions[key].text}
-                                </div>
-                            )
-                        })
-                    }
-                </>
-            )}
+
+                {text}
+
 
         </div>
 
