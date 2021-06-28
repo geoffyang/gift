@@ -5,7 +5,7 @@ const { check } = require('express-validator');
 
 // internal packages
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { Product } = require('../../db/models');
+const { Product, Review } = require('../../db/models');
 const { handleValidationErrors } = require('../../utils/validation')
 const { singlePublicFileUpload, singleMulterUpload } = require('../../awsS3')
 
@@ -31,7 +31,9 @@ const validateUpload = [
 ]
 
 /*******************************************/
-/*          /api/products Routes              */
+/*                                         */
+/*          /api/products Routes           */
+/*                                         */
 /*******************************************/
 
 // POST /api/products to upload
@@ -57,7 +59,7 @@ router.get('/',
     asyncHandler(async (req, res, next) => {
         const products = await Product.findAll({
             order: [['id', 'DESC']],
-            limit: 10
+            // limit: 10
         });
         return res.json(products)
     })
@@ -88,11 +90,7 @@ router.put('/:id', requireAuth, asyncHandler(async (req, res, next) => {
             shortDescription,
             longDescription,
             userId } = req.body
-        console.log("pulled out of req.body for PUT", {
-            title,
-            shortDescription,
-            longDescription
-        });
+
         const product = await Product.findByPk(id);
 
         const updatedProduct = await product.update({
@@ -104,6 +102,60 @@ router.put('/:id', requireAuth, asyncHandler(async (req, res, next) => {
         return res.json({ updatedProduct })
     } catch (e) { console.log(e) }
 }));
+
+/*******************************************/
+/*                                         */
+/*    /api/products/:id/discussion Routes  */
+/*                                         */
+/*******************************************/
+
+// GET /api/products/:productId/discussions
+router.get('/:productId/discussions', asyncHandler(async (req, res, next) => {
+    const productId = +req.params.productId
+    const discussions = await Review.findAll({
+        where: {
+            productId
+        },
+        order: [['id', 'DESC']],
+        // limit: 10
+    });
+    return res.json(discussions)
+}))
+
+// POST /api/products/:productId/discussions/
+router.post('/:productId/discussions', requireAuth, asyncHandler(async (req, res, next) => {
+    try {
+        const {
+            text,
+            productId,
+            userId } = req.body;
+        const review = await Review.upload({ text, userId, productId })
+        return res.json({ review })
+    } catch (err) {
+        next(err)
+    }
+}))
+// DELETE /api/products/:productId/discussions/:discussionId
+router.delete('/:productId/discussions/:discussionId', asyncHandler(async (req, res, next) => {
+    const productId = +req.params.productId
+    const discussionId = +req.params.discussionId
+    const discussion = await Review.findByPk(discussionId);
+    await discussion.destroy()
+    return res.json(discussionId)
+}))
+// PUT /api/products/:productId/discussions/:discussionId
+router.put('/:productId/discussions/:discussionId', asyncHandler(async (req, res, next) => {
+    try {
+        const discussionId = +req.params.discussionId
+        const discussion = await Review.findByPk(discussionId);
+        const { text, productId, userId } = req.body;
+        const updatedDiscussion = await discussion.update({ text, productId, userId })
+        return res.json(updatedDiscussion)
+    } catch (err) {
+        next(err)
+    }
+}))
+
 
 
 module.exports = router;

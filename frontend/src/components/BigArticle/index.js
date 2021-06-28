@@ -19,7 +19,6 @@ export default function BigArticle() {
     const [showModal, setShowModal] = useState(false);
     console.log("how many times do I render?");
 
-
     useEffect(() => {
         dispatch(productActions.getProducts())
             .then(() => { setIsLoaded(true) })
@@ -35,7 +34,7 @@ export default function BigArticle() {
     // const allDiscussion = useSelector(state => state.discussion)
 
     if (!user) return <Redirect to="/products" />
-    
+
     let userActionButtons = (<></>)
     if (product && user.id === product.userId) {
         // console.log('how many times does this run');
