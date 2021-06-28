@@ -109,3 +109,12 @@ export default function discussionReducer(state = initialState, action) {
             return state;
     }
 }
+
+// discussion:{
+//      1: {
+//          text: 'good',
+//          userId: 2,
+//          productId: 2
+//      },
+// },
+// products:{}

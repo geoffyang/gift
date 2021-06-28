@@ -9,6 +9,8 @@ import Discussion from '../Discussion'
 import EditArticleForm from './EditArticleForm'
 import { Modal } from '../../context/Modal';
 import * as productActions from "../../store/product";
+import * as discussionActions from "../../store/discussion";
+
 
 export default function BigArticle() {
     const dispatch = useDispatch();
@@ -16,6 +18,7 @@ export default function BigArticle() {
     let { id } = useParams();
 
     const [isLoaded, setIsLoaded] = useState(false);
+    const [hasDiscussion, setHasDiscussion] = useState(false);
     const [showModal, setShowModal] = useState(false);
     console.log("how many times do I render?");
 
@@ -23,7 +26,11 @@ export default function BigArticle() {
         dispatch(productActions.getProducts())
             .then(() => { setIsLoaded(true) })
             .then(() => { console.log("useEffect ran"); })
-    }, [dispatch])
+        dispatch(discussionActions.getDiscussionsThunk(id))
+            .then(() => { setHasDiscussion(true) })
+    }, [dispatch, id])
+
+
 
     const deleteArticle = async => {
         history.push('/products')
@@ -64,7 +71,7 @@ export default function BigArticle() {
                             <EditArticleForm setShowModal={setShowModal} />
                         </Modal>
                     )}
-                    <Discussion />
+                    {hasDiscussion && <Discussion productId={id} />}
                 </>
             )}
         </div>
