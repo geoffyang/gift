@@ -11,7 +11,6 @@ export default function ProductsDisplay() {
     const dispatch = useDispatch();
     const allProductsObj = useSelector((state) => state.products);
 
-
     useEffect(() => {
         dispatch(productActions.getProducts())
     }, [dispatch])

@@ -4,13 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 //internal imports
 import './BigArticle.css'
-// import SmallArticle from '../SmallArticle'
 import Discussion from '../Discussion'
 import EditArticleForm from './EditArticleForm'
 import { Modal } from '../../context/Modal';
 import * as productActions from "../../store/product";
 import * as discussionActions from "../../store/discussion";
-
 
 export default function BigArticle() {
     const dispatch = useDispatch();
@@ -25,12 +23,9 @@ export default function BigArticle() {
     useEffect(() => {
         dispatch(productActions.getProducts())
             .then(() => { setIsLoaded(true) })
-            .then(() => { console.log("useEffect ran"); })
         dispatch(discussionActions.getDiscussionsThunk(id))
             .then(() => { setHasDiscussion(true) })
-    }, [dispatch, id])
-
-
+    }, [dispatch])
 
     const deleteArticle = async => {
         history.push('/products')

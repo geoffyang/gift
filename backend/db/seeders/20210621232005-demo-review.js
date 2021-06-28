@@ -11,7 +11,7 @@ module.exports = {
       },
       {
         text: "It really was tiny",
-        userId: 1,
+        userId: 2,
         productId: 1
       }
     ], {});
