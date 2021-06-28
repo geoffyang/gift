@@ -12,10 +12,9 @@ const REMOVE_DISCUSSION = "discussions/delete"
 const EDIT_DISCUSSION = "discussions/edit"
 
 
-const loadDiscussions = (discussions, productId) => ({
+const loadDiscussions = discussions => ({
     type: LOAD_DISCUSSIONS,
-    discussions: discussions,
-    productId: productId
+    discussions: discussions
 })
 const addDiscussion = (discussion, productId) => {
     return {
@@ -37,7 +36,6 @@ const editDiscussion = (discussionId, discussion) => {
         discussionId: discussionId
     }
 }
-
 //***************************************** */
 //                                          */
 //                   THUNKS                 */
@@ -49,7 +47,7 @@ export const getDiscussionsThunk = (productId) => async dispatch => {
     if (response.ok) {
         // discussions is an array of objs
         const discussions = await response.json();
-        dispatch(loadDiscussions(discussions, productId))
+        dispatch(loadDiscussions(discussions))
         return discussions;
     }
 }
@@ -79,20 +77,34 @@ export const editDiscussionThunk = (discussionId, discussion) => async (dispatch
     dispatch(editDiscussion(discussionId, discussion));
     return response;
 }
-
-
 //*******************************************/
 //                                          */
 //                 REDUCER                  */
 //                                          */
 //*******************************************/
 
-const initialState = {  }
-
+const initialState = {}
 export default function discussionReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
-case 
+        case LOAD_DISCUSSIONS:
+            newState = {};
+            action.discussions.forEach(discussion => {
+                newState[discussion.id] = discussion
+            });
+            return newState;
+        case ADD_DISCUSSION:
+            newState = Object.assign({}, state);
+            newState[action.discussion.id] = action.discussion;
+            return newState;
+        case REMOVE_DISCUSSION:
+            newState = Object.assign({}, state);
+            delete newState[action.discussionId];
+            return newState;
+        case EDIT_DISCUSSION:
+            newState = Object.assign({}, state);
+            newState[action.discussionId] = action.discussion;
+            return newState;
         default:
             return state;
     }
