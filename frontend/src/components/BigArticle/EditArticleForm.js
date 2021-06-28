@@ -6,12 +6,14 @@ import * as productActions from "../../store/product";
 export default function EditArticleForm() {
     const dispatch = useDispatch();
     const history = useHistory();
+    const { id } = useParams();
     const sessionUser = useSelector((state) => state.session.user);
-    const { id } = +useParams();
+    const product = useSelector(state => state.products[id])
     const { title: initialTitle,
         shortDescription: initialShortDescription,
         longDescription: initialLongDescription,
-        userId: initialUserId } = useSelector(state => state.products[id])
+        userId: initialUserId } = product;
+
     const [title, setTitle] = useState(initialTitle);
     const [shortDescription, setShortDescription] = useState(initialShortDescription);
     const [longDescription, setLongDescription] = useState(initialLongDescription);
@@ -20,17 +22,23 @@ export default function EditArticleForm() {
     const [errors, setErrors] = useState([]);
 
     // must be logged in to edit
-    if (sessionUser !== initialUserId) {
+    if (sessionUser.id !== initialUserId) {
         return history.push(`/products/${id}`)
     }
-
 
     const handleSubmit = e => {
         e.preventDefault();
         let newErrors = []
-        dispatch(productActions.)
-
-
+        dispatch(productActions.editProductThunk({
+            title, shortDescription,
+            longDescription, image, userId: sessionUser.id
+        })).catch(async (res) => {
+            const data = await res.json();
+            if (data && data.errors) {
+                newErrors = data.errors;
+                setErrors(newErrors)
+            }
+        })
     }
 
     const updateFile = (e) => {

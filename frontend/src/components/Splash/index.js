@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 // import Image from "../../images/00.jpg"
 
 // internal
@@ -17,11 +18,17 @@ export default function Splash() {
                 <div className="splash__site">
                     <div className="splash__text__wrapper">
                         <div className="splash__text">
-                            <h1 className="cover-heading" id="cover-heading" >Need a gift?</h1>
-                            <p className="lead" id="opener">Gift Now is why you'll never gift the same way again.</p>
-                            <p className="lead" >
-                                <span id="get_started">Get started</span>
-                            </p>
+                            <>
+                                <h1 className="cover-heading" id="cover-heading" >
+                                    Need a gift?
+                                </h1>
+                                <p className="lead" id="opener">Gift Now is why you'll never gift the same way again.</p>
+                                <p className="lead" >
+                                    <Link to="/products">
+                                        <span id="get_started">Get started</span>
+                                    </Link>
+                                </p>
+                            </>
                         </div>
                     </div>
                 </div>

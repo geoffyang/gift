@@ -87,7 +87,8 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res, next) => {
 router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
     const id = +req.params.id;
     const product = await Product.findByPk(id);
-
+    const updatedProduct = await product.update({ body: body });
+    return res.json({updatedProduct})
 }))
 
 

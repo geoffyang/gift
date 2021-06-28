@@ -40,6 +40,7 @@ export const getProducts = () => async dispatch => {
         // products is an array of objs
         const products = await response.json();
         dispatch(loadProducts(products))
+        return products;
     }
 }
 
@@ -113,7 +114,7 @@ export const editProductThunk = (product) => async (dispatch) => {
     });
     const data = await response.json();
     // update redux state
-    dispatch(addProduct(data.product));
+    dispatch(addProduct(data.updatedProduct));
 
     return response;
 }
@@ -143,7 +144,6 @@ export default function productReducer(state = initialState, action) {
             newState = Object.assign({}, state);
             delete newState[action.id];
             return newState;
-
         default:
             return state;
     }
