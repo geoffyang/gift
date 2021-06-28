@@ -5,7 +5,6 @@ import { Route, Switch } from "react-router-dom";
 
 // internal
 import * as sessionActions from "./store/session";
-import * as productActions from "./store/product";
 import SignupFormPage from "./components/SignupFormPage";
 import Navigation from "./components/Navigation";
 import Splash from "./components/Splash"

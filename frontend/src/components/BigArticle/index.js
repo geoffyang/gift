@@ -1,4 +1,4 @@
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, Redirect, useHistory } from 'react-router-dom'
 import React, { useEffect, useState, } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,7 +9,6 @@ import Discussion from '../Discussion'
 import EditArticleForm from './EditArticleForm'
 import { Modal } from '../../context/Modal';
 import * as productActions from "../../store/product";
-
 
 export default function BigArticle() {
     const dispatch = useDispatch();
@@ -27,15 +26,16 @@ export default function BigArticle() {
             .then(() => { console.log("useEffect ran"); })
     }, [dispatch])
 
-
-
     const deleteArticle = async => {
         history.push('/products')
         dispatch(productActions.deleteProductThunk(id))
     }
     const product = useSelector(state => state.products[id])
     const user = useSelector((state) => state.session.user);
+    // const allDiscussion = useSelector(state => state.discussion)
 
+    if (!user) return <Redirect to="/products" />
+    
     let userActionButtons = (<></>)
     if (product && user.id === product.userId) {
         // console.log('how many times does this run');

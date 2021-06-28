@@ -6,16 +6,30 @@ import { csrfFetch } from './csrf'
 //                                         */
 //**************************************** */
 
-const LOAD_DISCUSSION = "discussion/load"
+const LOAD_DISCUSSIONS = "discussion/load"
 const ADD_DISCUSSION = "discussion/add"
 const REMOVE_DISCUSSION = "discussion/delete"
+
+const loadDiscussions = discussions => ({
+    type: LOAD_DISCUSSIONS,
+    discussions:discussions
+})
 
 //***************************************** */
 //                                          */
 //                   THUNKS                 */
 //                                          */
 //***************************************** */
-
+// GET /api/discussions
+export const getDiscussions = () => async dispatch => {
+    const response = await csrfFetch('/api/discussions')
+    if (response.ok) {
+        // discussions is an array of objs
+        const discussions = await response.json();
+        dispatch(loadDiscussions(discussions))
+        return discussions;
+    }
+}
 
 
 

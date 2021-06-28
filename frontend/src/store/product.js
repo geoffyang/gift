@@ -135,7 +135,7 @@ export default function productReducer(state = initialState, action) {
             delete newState[action.id];
             return newState;
         case EDIT_PRODUCT:
-            newState = Object.assign({}, state);
+            newState = {...state};
             newState[action.id].title = action.product.title;
             newState[action.id].shortDescription = action.product.shortDescription;
             newState[action.id].longDescription = action.product.longDescription;

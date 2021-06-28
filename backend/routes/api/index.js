@@ -14,12 +14,17 @@ router.use('/session', sessionRouter)
 // POST api/session to log in
 // GET api/session returns current user
 // DELETE api/session removes token cookie
+
 router.use('/users', usersRouter)
 // POST api/users to register
 
 router.use('/products', productsRouter)
 // GET api/products
 // POST api/products
+// DELETE
+// PUT
+// GET api/products/:id/discussions
+// GET api
 
 /*******************************************/
 /*              /API Routes                */
