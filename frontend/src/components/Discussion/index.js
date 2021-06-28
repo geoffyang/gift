@@ -7,11 +7,17 @@ import './Discussion.css'
 import * as discussionActions from "../../store/discussion";
 
 
-export default function Discussion() {
+export default function Discussion({ text }) {
     return (
-        <>
 
-        </>
+        <div className="discussion__container">
+
+
+            {text}
+
+
+        </div>
 
     )
+
 }

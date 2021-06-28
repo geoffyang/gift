@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 //internal imports
 import './BigArticle.css'
-// import SmallArticle from '../SmallArticle'
 import Discussion from '../Discussion'
 import EditArticleForm from './EditArticleForm'
 import { Modal } from '../../context/Modal';
@@ -22,7 +21,6 @@ export default function BigArticle() {
     useEffect(() => {
         dispatch(productActions.getProducts())
             .then(() => { setIsLoaded(true) })
-            .then(() => { console.log("useEffect ran"); })
     }, [dispatch])
 
     const deleteArticle = async => {
@@ -31,13 +29,18 @@ export default function BigArticle() {
     }
     const product = useSelector(state => state.products[id])
     const user = useSelector((state) => state.session.user);
-    // const allDiscussion = useSelector(state => state.discussion)
+    const discussions = useSelector(state => state.products.discussions)
+    const relevantDiscussion = []
+    for (const property in discussions) {
+        if (discussions[property].productId === +id) {
+            relevantDiscussion.push(discussions[property])
+        }
+    }
 
     if (!user) return <Redirect to="/products" />
 
     let userActionButtons = (<></>)
     if (product && user.id === product.userId) {
-        // console.log('how many times does this run');
         userActionButtons = (<div className="big-article__user-actions">
             <i className="far fa-edit" onClick={() => setShowModal(true)} />
             <i className="far fa-trash-alt" onClick={deleteArticle}></i>
@@ -64,7 +67,12 @@ export default function BigArticle() {
                             <EditArticleForm setShowModal={setShowModal} />
                         </Modal>
                     )}
-                    <Discussion />
+                    <h2>Discussion:</h2>
+                    {relevantDiscussion.length &&
+                        relevantDiscussion.map(d => {
+                            return <Discussion text={d.text} />
+                        })
+                    }
                 </>
             )}
         </div>
