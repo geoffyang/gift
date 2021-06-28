@@ -10,6 +10,11 @@ module.exports = {
         productId: 1
       },
       {
+        text: "My father enjoyed this purifier",
+        userId: 1,
+        productId: 1
+      },
+      {
         text: "It really was tiny",
         userId: 2,
         productId: 1

@@ -10,6 +10,9 @@ const LOAD_PRODUCTS = "products/load"
 const ADD_PRODUCT = "products/add"
 const REMOVE_PRODUCT = "products/delete"
 const EDIT_PRODUCT = "products/edit"
+const REMOVE_DISCUSSION = "discussions/delete"
+const ADD_DISCUSSION = "discussions/add"
+
 
 const loadProducts = (products, discussions) => ({
     type: LOAD_PRODUCTS,
@@ -39,7 +42,7 @@ const editProduct = (id, product) => {
 
 //********************************************** */
 //                                               */
-//                    THUNKS                     */
+//                PRODUCT THUNKS                 */
 //                                               */
 //********************************************** */
 
@@ -51,7 +54,7 @@ export const getProducts = () => async dispatch => {
         // products is an array of objs
         const products = await productsResponse.json();
         const discussions = await discussionsResponse.json();
-        console.log("discussions retrieved", discussions);
+        console.log("global discussions retrieved", discussions);
         dispatch(loadProducts(products, discussions))
         return { products, discussions };
     }
@@ -105,13 +108,47 @@ export const editProductThunk = (id, product) => async (dispatch) => {
     });
 
     const data = await response.json();
-    console.log('data in editProduct Thunk, returned from put route', data);
     // update redux state
     dispatch(editProduct(id, product));
 
     return response;
 }
+//********************************************** */
+//                                               */
+//             DISCUSSION THUNKS                 */
+//                                               */
+//********************************************** */
 
+// DELETE /api/products/:productId/discussions/:discussionId
+export const deleteDiscussionThunk = discussionId => async (dispatch) => {
+    const response = await csrfFetch(`/api/products/3/discussions/${discussionId}`, { method: `DELETE` })
+    const id = await response.json()
+    dispatch(deleteDiscussion(id));
+}
+
+// POST /api/products/:productId/discussions
+export const addDiscussionThunk = (discussion, productId) => async dispatch => {
+    const response = await csrfFetch(`/api/products/${productId}/discussions`, {
+        method: 'POST',
+        body: JSON.stringify(discussion)
+    })
+    const data = await response.json();
+    console.log("sending to addDiscussion reducer", {discussion:data.discussion,productId});
+    dispatch(addDiscussion(data.discussion))
+    return response;
+}
+const deleteDiscussion = discussionId => {
+    return {
+        type: REMOVE_DISCUSSION,
+        discussionId: discussionId
+    }
+}
+const addDiscussion = (discussion) => {
+    return {
+        type: ADD_DISCUSSION,
+        discussion: discussion
+    }
+}
 //*******************************************/
 //                                          */
 //                 REDUCER                  */
@@ -141,7 +178,6 @@ export default function productReducer(state = initialState, action) {
         case REMOVE_PRODUCT:
             // newState = Object.assign({}, state);
             newState = JSON.parse(JSON.stringify(state));
-
             delete newState.products[action.id];
             return newState;
         case EDIT_PRODUCT:
@@ -151,6 +187,14 @@ export default function productReducer(state = initialState, action) {
             newState.products[action.id].title = action.product.title;
             newState.products[action.id].shortDescription = action.product.shortDescription;
             newState.products[action.id].longDescription = action.product.longDescription;
+            return newState;
+        case REMOVE_DISCUSSION:
+            newState = JSON.parse(JSON.stringify(state));
+            delete newState.discussions[action.discussionId];
+            return newState;
+        case ADD_DISCUSSION:
+            newState = JSON.parse(JSON.stringify(state));
+            // newState.products.discussions[action.discussion.id] = action.discussion;
             return newState;
         default:
             return state;

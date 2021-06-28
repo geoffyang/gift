@@ -61,12 +61,7 @@ export const addDiscussionThunk = (discussion, productId) => async dispatch => {
     dispatch(addDiscussion(data, productId))
     return response;
 }
-// DELETE /api/products/:productId/discussions/:discussionId
-export const deleteDiscussionThunk = discussionId => async (dispatch) => {
-    const response = await csrfFetch(`/api/products/3/discussoins/${discussionId}`, { method: `DELETE` })
-    const id = await response.json()
-    dispatch(deleteDiscussion(id));
-}
+
 // PUT /api/products/:productId/discussions/:discussionId
 export const editDiscussionThunk = (discussionId, discussion) => async (dispatch) => {
     const response = await csrfFetch(`/api/products/3/discussions/${discussionId}`, {
