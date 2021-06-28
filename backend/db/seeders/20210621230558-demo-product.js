@@ -49,7 +49,14 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete('Products', {
-      title: { [Op.in]: ['Tiny Air Purifier', 'Vitamin Supplements'] }
+      title: {
+        [Op.in]: ['Tiny Air Purifier',
+          'Vitamin Supplements',
+          'Childrens Slingshot',
+          'Pacific Vacation Shorts',
+          'Quality Meats'
+        ]
+      }
     }, {});
   }
 };
