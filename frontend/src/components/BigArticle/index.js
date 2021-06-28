@@ -18,18 +18,21 @@ export default function BigArticle() {
 
     const [isLoaded, setIsLoaded] = useState(false);
     const [showModal, setShowModal] = useState(false);
+    console.log("how many times do I render?");
 
 
     useEffect(() => {
         dispatch(productActions.getProducts())
             .then(() => { setIsLoaded(true) })
+            .then(() => { console.log("useEffect ran"); })
     }, [dispatch])
+
+
 
     const deleteArticle = async => {
         history.push('/products')
         dispatch(productActions.deleteProductThunk(id))
     }
-
     const product = useSelector(state => state.products[id])
     const user = useSelector((state) => state.session.user);
 
@@ -51,15 +54,15 @@ export default function BigArticle() {
                         {product.imageUrl && <img src={product.imageUrl} alt="product" />}
                     </div>
                     <div className="big-article__content-wrapper">
-                        <h1>{product.title}</h1>
-                        {product?.title}
-                        {product?.longDescription}
+                        <h1>{product?.title}</h1>
+                        <h3>{product?.shortDescription}</h3>
+                        <h3>{product?.longDescription}</h3>
                     </div>
 
                     {userActionButtons}
                     {showModal && (
                         <Modal onClose={() => setShowModal(false)}>
-                            <EditArticleForm />
+                            <EditArticleForm setShowModal={setShowModal} />
                         </Modal>
                     )}
                     <Discussion />

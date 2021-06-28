@@ -52,7 +52,6 @@ router.post('/', requireAuth, singleMulterUpload("image"),
         }
     })
 )
-
 // GET /api/products
 router.get('/',
     asyncHandler(async (req, res, next) => {
@@ -63,14 +62,12 @@ router.get('/',
         return res.json(products)
     })
 )
-
 // GET /api/products/:id
 router.get('/:id', asyncHandler(async (req, res) => {
     const id = +req.params.id
     console.log(`type of id is ${typeof id}`);
     const product = await Product.findByPk(id)
 }))
-
 // DELETE /api/products/:id
 router.delete('/:id', requireAuth, asyncHandler(async (req, res, next) => {
     const id = parseInt(req.params.id, 10)
@@ -83,13 +80,30 @@ router.delete('/:id', requireAuth, asyncHandler(async (req, res, next) => {
 
     return res.json(id)
 }))
+// PUT /api/products/:id
+router.put('/:id', requireAuth, asyncHandler(async (req, res, next) => {
+    try {
+        const id = +req.params.id;
+        const { title,
+            shortDescription,
+            longDescription,
+            userId } = req.body
+        console.log("pulled out of req.body for PUT", {
+            title,
+            shortDescription,
+            longDescription
+        });
+        const product = await Product.findByPk(id);
 
-router.put('/:id', requireAuth, asyncHandler(async (req, res) => {
-    const id = +req.params.id;
-    const product = await Product.findByPk(id);
-    const updatedProduct = await product.update({ body: body });
-    return res.json({updatedProduct})
-}))
+        const updatedProduct = await product.update({
+            title,
+            shortDescription,
+            longDescription,
+            userId
+        });
+        return res.json({ updatedProduct })
+    } catch (e) { console.log(e) }
+}));
 
 
 module.exports = router;

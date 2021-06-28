@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
 import * as productActions from "../../store/product";
 
-export default function EditArticleForm() {
+export default function EditArticleForm({ setShowModal }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const { id } = useParams();
@@ -17,7 +17,6 @@ export default function EditArticleForm() {
     const [title, setTitle] = useState(initialTitle);
     const [shortDescription, setShortDescription] = useState(initialShortDescription);
     const [longDescription, setLongDescription] = useState(initialLongDescription);
-    const [image, setImage] = useState(null);
 
     const [errors, setErrors] = useState([]);
 
@@ -28,23 +27,14 @@ export default function EditArticleForm() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        let newErrors = []
-        dispatch(productActions.editProductThunk({
-            title, shortDescription,
-            longDescription, image, userId: sessionUser.id
-        })).catch(async (res) => {
-            const data = await res.json();
-            if (data && data.errors) {
-                newErrors = data.errors;
-                setErrors(newErrors)
-            }
-        })
+         dispatch(productActions.editProductThunk(
+            id, {
+            title,
+            shortDescription,
+            longDescription,
+        }))
+        return setShowModal(false)
     }
-
-    const updateFile = (e) => {
-        const file = e.target.files[0];
-        if (file) setImage(file);
-    };
 
     return (
         <form onSubmit={handleSubmit}>
@@ -79,10 +69,7 @@ export default function EditArticleForm() {
                     onChange={(e) => setLongDescription(e.target.value)}
                 />
             </label>
-            <label>
-                <input type="file" onChange={updateFile} />
-            </label>
-            <button type="submit">Log In</button>
+            <button type="submit">Edit Product</button>
         </form>
     );
 }

@@ -9,6 +9,7 @@ import { csrfFetch } from './csrf'
 const LOAD_PRODUCTS = "products/load"
 const ADD_PRODUCT = "products/add"
 const REMOVE_PRODUCT = "products/delete"
+const EDIT_PRODUCT = "products/edit"
 
 const loadProducts = products => ({
     type: LOAD_PRODUCTS,
@@ -27,6 +28,13 @@ const deleteProduct = (id) => {
         id: id
     }
 }
+const editProduct = (id, product) => {
+    return {
+        type: EDIT_PRODUCT,
+        product: product,
+        id:id
+    }
+}
 
 //********************************************** */
 //                                               */
@@ -34,6 +42,7 @@ const deleteProduct = (id) => {
 //                                               */
 //********************************************** */
 
+// GET /api/products
 export const getProducts = () => async dispatch => {
     const response = await csrfFetch('/api/products')
     if (response.ok) {
@@ -43,15 +52,13 @@ export const getProducts = () => async dispatch => {
         return products;
     }
 }
-
+// GET /api/products/:id
 export const getOneProduct = (id) => async dispatch => {
     await csrfFetch(`/api/products/${id}`)
 }
-
 // upload product POST /api/products
 export const uploadProductThunk = (product) => async (dispatch) => {
     const { title, image, images, longDescription, shortDescription, userId } = product;
-
     const formData = new FormData();
     formData.append("title", title)
     formData.append("shortDescription", shortDescription)
@@ -86,35 +93,18 @@ export const deleteProductThunk = (id) => async (dispatch) => {
     id = await response.json()
     dispatch(deleteProduct(id));
 }
+// PUT /api/products/:id
+export const editProductThunk = (id, product) => async (dispatch) => {
 
-export const editProductThunk = (product) => async (dispatch) => {
-    const { title, image, longDescription, shortDescription, userId } = product;
-
-    const formData = new FormData();
-    formData.append("title", title)
-    formData.append("shortDescription", shortDescription)
-    formData.append("longDescription", longDescription)
-    formData.append("userId", userId)
-
-    // for multiple files
-    // if (images && images.length !== 0) {
-    //     for (var i = 0; i < images.length; i++) {
-    //         formData.append("images", images[i]);
-    //     }
-    // }
-
-    // for single file
-    if (image) formData.append("image", image);
-
-    // update database
-    const response = await csrfFetch('/api/products', {
-        method: 'PUT',
-        headers: { "Content-Type": "multipart/form-data" },
-        body: formData,
+    const response = await csrfFetch(`/api/products/${id}`, {
+        method: "PUT",
+        body: JSON.stringify(product)
     });
+
     const data = await response.json();
+    console.log('data in editProduct Thunk, returned from put route', data);
     // update redux state
-    dispatch(addProduct(data.updatedProduct));
+    dispatch(editProduct(id, product));
 
     return response;
 }
@@ -143,6 +133,12 @@ export default function productReducer(state = initialState, action) {
         case REMOVE_PRODUCT:
             newState = Object.assign({}, state);
             delete newState[action.id];
+            return newState;
+        case EDIT_PRODUCT:
+            newState = Object.assign({}, state);
+            newState[action.id].title = action.product.title;
+            newState[action.id].shortDescription = action.product.shortDescription;
+            newState[action.id].longDescription = action.product.longDescription;
             return newState;
         default:
             return state;
