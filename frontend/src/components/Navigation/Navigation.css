@@ -32,6 +32,11 @@
     text-decoration: none;
 }
 
+.nav__links li {
+    align-items: center;
+    font-size: 24px;
+}
+
 .active {
     /* color: rgba(30, 58, 2, 0.83); */
     /* font-size: 1.1rem; */
@@ -44,4 +49,24 @@
     text-decoration: none;
     font-family: Allerta, Allan, Lato, Tahoma, Roboto;
     font-size: .8rem
+}
+
+.nav-container button {
+    width: fit-content;
+}
+
+.profile-dropdown {
+    margin-top: 200px;
+    display: -ms-grid;
+    width: fit-content;
+    border-radius: 5px;
+    border-style: outset;
+}
+
+.profile-dropdown li {
+    margin: 10px;
+}
+
+.profile-dropdown button {
+    margin-top: 20px;
 }
