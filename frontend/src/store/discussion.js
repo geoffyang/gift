@@ -6,31 +6,79 @@ import { csrfFetch } from './csrf'
 //                                         */
 //**************************************** */
 
-const LOAD_DISCUSSIONS = "discussion/load"
-const ADD_DISCUSSION = "discussion/add"
-const REMOVE_DISCUSSION = "discussion/delete"
+const LOAD_DISCUSSIONS = "discussions/load"
+const ADD_DISCUSSION = "discussions/add"
+const REMOVE_DISCUSSION = "discussions/delete"
+const EDIT_DISCUSSION = "discussions/edit"
 
-const loadDiscussions = discussions => ({
+
+const loadDiscussions = (discussions, productId) => ({
     type: LOAD_DISCUSSIONS,
-    discussions:discussions
+    discussions: discussions,
+    productId: productId
 })
+const addDiscussion = (discussion, productId) => {
+    return {
+        type: ADD_DISCUSSION,
+        discussion: discussion,
+        productId: productId
+    }
+}
+const deleteDiscussion = discussionId => {
+    return {
+        type: REMOVE_DISCUSSION,
+        discussionId: discussionId
+    }
+}
+const editDiscussion = (discussionId, discussion) => {
+    return {
+        type: EDIT_DISCUSSION,
+        discussion: discussion,
+        discussionId: discussionId
+    }
+}
 
 //***************************************** */
 //                                          */
 //                   THUNKS                 */
 //                                          */
 //***************************************** */
-// GET /api/discussions
-export const getDiscussions = () => async dispatch => {
-    const response = await csrfFetch('/api/discussions')
+// GET /api/products/:productId/discussions
+export const getDiscussionsThunk = (productId) => async dispatch => {
+    const response = await csrfFetch(`/api/products/${productId}/discussions`)
     if (response.ok) {
         // discussions is an array of objs
         const discussions = await response.json();
-        dispatch(loadDiscussions(discussions))
+        dispatch(loadDiscussions(discussions, productId))
         return discussions;
     }
 }
-
+// POST /api/products/:productId/discussions
+export const addDiscussionThunk = (discussion, productId) => async dispatch => {
+    const response = await csrfFetch(`/api/products/${productId}/discussions`, {
+        method: 'POST',
+        body: JSON.stringify(discussion)
+    })
+    const data = await response.json();
+    dispatch(addDiscussion(data, productId))
+    return response;
+}
+// DELETE /api/products/:productId/discussions/:discussionId
+export const deleteDiscussionThunk = discussionId => async (dispatch) => {
+    const response = await csrfFetch(`/api/products/3/discussoins/${discussionId}`, { method: `DELETE` })
+    const id = await response.json()
+    dispatch(deleteDiscussion(id));
+}
+// PUT /api/products/:productId/discussions/:discussionId
+export const editDiscussionThunk = (discussionId, discussion) => async (dispatch) => {
+    const response = await csrfFetch(`/api/products/3/discussions/${discussionId}`, {
+        method: "PUT",
+        body: JSON.stringify(discussion)
+    });
+    const data = await response.json();
+    dispatch(editDiscussion(discussionId, discussion));
+    return response;
+}
 
 
 //*******************************************/
@@ -39,12 +87,12 @@ export const getDiscussions = () => async dispatch => {
 //                                          */
 //*******************************************/
 
-const initialState = { discussion: {}, }
+const initialState = {  }
 
 export default function discussionReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
-
+case 
         default:
             return state;
     }

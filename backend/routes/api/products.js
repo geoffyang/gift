@@ -129,8 +129,8 @@ router.post('/:productId/discussions', requireAuth, asyncHandler(async (req, res
             text,
             productId,
             userId } = req.body;
-        const review = await Review.upload({ text, userId, productId })
-        return res.json({ review })
+        const discussion = await Review.upload({ text, userId, productId })
+        return res.json({ discussion })
     } catch (err) {
         next(err)
     }

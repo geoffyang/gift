@@ -95,7 +95,6 @@ export const deleteProductThunk = (id) => async (dispatch) => {
 }
 // PUT /api/products/:id
 export const editProductThunk = (id, product) => async (dispatch) => {
-
     const response = await csrfFetch(`/api/products/${id}`, {
         method: "PUT",
         body: JSON.stringify(product)
