@@ -16,23 +16,21 @@ export default function BigArticle() {
     let { id } = useParams();
 
     const [isLoaded, setIsLoaded] = useState(false);
-    const [hasDiscussion, setHasDiscussion] = useState(false);
     const [showModal, setShowModal] = useState(false);
     console.log("how many times do I render?");
 
     useEffect(() => {
         dispatch(productActions.getProducts())
             .then(() => { setIsLoaded(true) })
-        dispatch(discussionActions.getDiscussionsThunk(id))
-            .then(() => { setHasDiscussion(true) })
     }, [dispatch])
 
     const deleteArticle = async => {
         history.push('/products')
         dispatch(productActions.deleteProductThunk(id))
     }
-    const product = useSelector(state => state.products[id])
+    const product = useSelector(state => state.products.products[id])
     const user = useSelector((state) => state.session.user);
+    // const discussions = useSelector(state => state.products.discussions)
     // const allDiscussion = useSelector(state => state.discussion)
 
     if (!user) return <Redirect to="/products" />
@@ -66,7 +64,7 @@ export default function BigArticle() {
                             <EditArticleForm setShowModal={setShowModal} />
                         </Modal>
                     )}
-                    {hasDiscussion && <Discussion productId={id} />}
+                    {<Discussion productId={id} />}
                 </>
             )}
         </div>

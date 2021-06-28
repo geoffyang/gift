@@ -9,7 +9,7 @@ import SmallArticle from '../SmallArticle'
 export default function ProductsDisplay() {
 
     const dispatch = useDispatch();
-    const allProductsObj = useSelector((state) => state.products);
+    const allProductsObj = useSelector((state) => state.products.products);
 
     useEffect(() => {
         dispatch(productActions.getProducts())

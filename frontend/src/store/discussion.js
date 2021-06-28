@@ -110,7 +110,7 @@ export default function discussionReducer(state = initialState, action) {
     }
 }
 
-// discussion:{
+// discussions:{
 //      1: {
 //          text: 'good',
 //          userId: 2,

@@ -11,9 +11,10 @@ const ADD_PRODUCT = "products/add"
 const REMOVE_PRODUCT = "products/delete"
 const EDIT_PRODUCT = "products/edit"
 
-const loadProducts = products => ({
+const loadProducts = (products, discussions) => ({
     type: LOAD_PRODUCTS,
-    products: products
+    products: products, //array of objs
+    discussions: discussions // array of objs
 })
 
 const addProduct = (product) => {
@@ -32,7 +33,7 @@ const editProduct = (id, product) => {
     return {
         type: EDIT_PRODUCT,
         product: product,
-        id:id
+        id: id
     }
 }
 
@@ -44,12 +45,15 @@ const editProduct = (id, product) => {
 
 // GET /api/products
 export const getProducts = () => async dispatch => {
-    const response = await csrfFetch('/api/products')
-    if (response.ok) {
+    const productsResponse = await csrfFetch('/api/products')
+    const discussionsResponse = await csrfFetch('/api/products/3/discussions')
+    if (productsResponse.ok && discussionsResponse.ok) {
         // products is an array of objs
-        const products = await response.json();
-        dispatch(loadProducts(products))
-        return products;
+        const products = await productsResponse.json();
+        const discussions = await discussionsResponse.json();
+        console.log("discussions retrieved", discussions);
+        dispatch(loadProducts(products, discussions))
+        return { products, discussions };
     }
 }
 // GET /api/products/:id
@@ -114,30 +118,39 @@ export const editProductThunk = (id, product) => async (dispatch) => {
 //                                          */
 //*******************************************/
 
-const initialState = { product: {}, }
+const initialState = { products: {}, discussions: {} }
 
 export default function productReducer(state = initialState, action) {
     let newState;
     switch (action.type) {
         case LOAD_PRODUCTS:
-            newState = {};
+            newState = { products: {}, discussions: {} };
             action.products.forEach(product => {
-                newState[product.id] = product;
+                newState.products[product.id] = product;
             }) // normalize arr into obj
+            action.discussions.forEach(discussion => {
+                newState.discussions[discussion.id] = discussion;
+            })
             return newState;
         case ADD_PRODUCT:
-            newState = Object.assign({}, state);
-            newState[action.product.id] = action.product;
+            // newState = Object.assign({}, state);
+            newState = JSON.parse(JSON.stringify(state));
+
+            newState.products[action.product.id] = action.product;
             return newState;
         case REMOVE_PRODUCT:
-            newState = Object.assign({}, state);
-            delete newState[action.id];
+            // newState = Object.assign({}, state);
+            newState = JSON.parse(JSON.stringify(state));
+
+            delete newState.products[action.id];
             return newState;
         case EDIT_PRODUCT:
-            newState = {...state};
-            newState[action.id].title = action.product.title;
-            newState[action.id].shortDescription = action.product.shortDescription;
-            newState[action.id].longDescription = action.product.longDescription;
+            // newState = {...state};
+            newState = JSON.parse(JSON.stringify(state));
+
+            newState.products[action.id].title = action.product.title;
+            newState.products[action.id].shortDescription = action.product.shortDescription;
+            newState.products[action.id].longDescription = action.product.longDescription;
             return newState;
         default:
             return state;

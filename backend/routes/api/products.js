@@ -110,15 +110,21 @@ router.put('/:id', requireAuth, asyncHandler(async (req, res, next) => {
 /*******************************************/
 
 // GET /api/products/:productId/discussions
-router.get('/:productId/discussions', asyncHandler(async (req, res, next) => {
-    const productId = +req.params.productId
-    const discussions = await Review.findAll({
-        where: {
-            productId
-        },
-        order: [['id', 'DESC']],
-        // limit: 10
-    });
+// router.get('/:productId/discussions', asyncHandler(async (req, res, next) => {
+//     const productId = +req.params.productId
+//     const discussions = await Review.findAll({
+//         where: {
+//             productId
+//         },
+//         order: [['id', 'DESC']],
+//         // limit: 10
+//     });
+//     return res.json(discussions)
+// }))
+// GET /api/products/3/discussions
+router.get('/3/discussions', asyncHandler(async (req, res) => {
+    const discussions = await Review.findAll();
+    
     return res.json(discussions)
 }))
 
