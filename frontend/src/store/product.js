@@ -54,7 +54,7 @@ export const getProducts = () => async dispatch => {
         // products is an array of objs
         const products = await productsResponse.json();
         const discussions = await discussionsResponse.json();
-        console.log("global discussions retrieved", discussions);
+        // console.log("global discussions retrieved", discussions);
         dispatch(loadProducts(products, discussions))
         return { products, discussions };
     }
