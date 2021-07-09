@@ -1,7 +1,6 @@
 import { csrfFetch } from './csrf'
 
 const SET_USER = "user/set"
-// const RESTORE_USER = "user/restore"
 const REMOVE_USER = "user/remove"
 
 const setUser = (user) => {

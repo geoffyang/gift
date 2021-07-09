@@ -10,8 +10,6 @@ const LOAD_PRODUCTS = "products/load"
 const ADD_PRODUCT = "products/add"
 const REMOVE_PRODUCT = "products/delete"
 const EDIT_PRODUCT = "products/edit"
-const REMOVE_DISCUSSION = "discussions/delete"
-const ADD_DISCUSSION = "discussions/add"
 
 
 const loadProducts = (products, discussions) => ({
@@ -49,8 +47,8 @@ const editProduct = (id, product) => {
 // GET /api/products
 export const getProducts = () => async dispatch => {
     const productsResponse = await csrfFetch('/api/products')
-    const discussionsResponse = await csrfFetch('/api/products/3/discussions')
-    if (productsResponse.ok && discussionsResponse.ok) {
+
+    if (productsResponse.ok ) {
         // products is an array of objs
         const products = await productsResponse.json();
         const discussions = await discussionsResponse.json();

@@ -9,7 +9,7 @@ import discussionReducer from './discussion';
 const rootReducer = combineReducers({
     session: sessionReducer,
     products: productReducer,
-    // discussions: discussionReducer
+    discussions: discussionReducer
 });
 
 let enhancer;
