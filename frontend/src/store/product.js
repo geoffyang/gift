@@ -51,10 +51,9 @@ export const getProducts = () => async dispatch => {
     if (productsResponse.ok ) {
         // products is an array of objs
         const products = await productsResponse.json();
-        const discussions = await discussionsResponse.json();
         // console.log("global discussions retrieved", discussions);
-        dispatch(loadProducts(products, discussions))
-        return { products, discussions };
+        dispatch(loadProducts(products ))
+        return { products };
     }
 }
 // GET /api/products/:id
